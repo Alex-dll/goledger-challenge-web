@@ -11,20 +11,25 @@ function Home() {
         <Card
           layoutId="car-img"
           href="/cars"
-          imgSrc="/car.jpg"
+          imgSrc="/home/car.jpg"
           title="Carros"
         />
         <Card
           layoutId="racer-img"
           href="#"
-          imgSrc="/racer.jpg"
+          imgSrc="/home/racer.jpg"
           title="Pilotos"
         />
-        <Card layoutId="team-img" href="#" imgSrc="/team.jpg" title="Times" />
+        <Card
+          layoutId="team-img"
+          href="#"
+          imgSrc="/home/team.jpg"
+          title="Times"
+        />
         <Card
           layoutId="event-img"
           href="#"
-          imgSrc="/event.jpg"
+          imgSrc="/home/event.jpg"
           title="Eventos"
         />
       </div>
