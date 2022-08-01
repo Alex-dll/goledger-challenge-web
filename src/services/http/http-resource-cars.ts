@@ -36,8 +36,25 @@ export interface CreateCar {
   ];
 }
 
+export interface UpdateCar {
+  update: {
+    '@assetType': string;
+    id: number;
+    driver: {
+      id: number;
+      '@assetType': string;
+      '@key': string;
+    };
+    model: string;
+  };
+}
+
 export type CreateCarProps = {
   payload: CreateCar;
+};
+
+export type UpdateCarProps = {
+  payload: UpdateCar;
 };
 
 export function createCar({
@@ -45,6 +62,14 @@ export function createCar({
 }: CreateCarProps): Promise<GetByAssetTypeProps> {
   return http
     .post<GetByAssetTypeProps>(`invoke/createAsset`, payload)
+    .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data);
+}
+
+export function updateCarAsset({
+  payload,
+}: UpdateCarProps): Promise<GetByAssetTypeProps> {
+  return http
+    .put<GetByAssetTypeProps>(`invoke/updateAsset`, payload)
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data);
 }
 

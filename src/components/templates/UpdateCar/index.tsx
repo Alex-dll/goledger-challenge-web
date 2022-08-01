@@ -4,49 +4,55 @@ import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 
-import { useGetDrivers } from '../../../hooks/useApi';
+import { useGetCar, useGetDrivers } from '../../../hooks/useApi';
 import { query as queryClient } from '../../../services';
-import { CreateCar as CreateCarType, createCar } from '../../../services/http';
+import {
+  UpdateCar as UpdateCarProps,
+  updateCarAsset,
+} from '../../../services/http';
 import { Heading, LinkGoTo } from '../../atoms';
 
 import styles from './styles.module.css';
 
-function CreateCar() {
-  const [model, setModel] = useState('');
-  const [pilot, setPilot] = useState('');
-
-  const { data } = useGetDrivers();
-
-  const findesDriver = data?.result.find((driver) => driver.id > pilot);
-
+function UpdateCar() {
   const router = useRouter();
 
-  const payload: CreateCarType = {
-    asset: [
-      {
-        '@assetType': 'car',
-        id: Number(new Date().getTime()),
-        driver: {
-          id: Number(findesDriver?.id),
-          '@assetType': 'driver',
-          '@key': String(findesDriver?.['@key']),
-        },
-        model,
+  const { id } = router.query;
+
+  const car = useGetCar(Number(id));
+  const { data } = useGetDrivers();
+
+  const [model, setModel] = useState(String(car.data?.model));
+  const [pilot, setPilot] = useState(car?.data?.driver['@key']);
+
+  const findesDriver = data?.result.find((driver) => driver['@key'] === pilot);
+
+  console.log(findesDriver);
+
+  const payload: UpdateCarProps = {
+    update: {
+      '@assetType': 'car',
+      id: Number(car.data?.id),
+      driver: {
+        id: Number(findesDriver?.id),
+        '@assetType': 'driver',
+        '@key': String(findesDriver?.['@key']),
       },
-    ],
+      model,
+    },
   };
 
-  async function handleCreateCar() {
+  async function handleUpdateCar() {
     if (!model || !pilot) {
       toast.error('Preencha todos os campos!');
     } else {
       try {
-        await createCar({ payload });
+        await updateCarAsset({ payload });
         await queryClient.invalidateQueries(['cars']);
         router.push('/cars');
-        toast.success('Carro cadastrado com sucesso! 🙂');
+        toast.success('Carro atualizado com sucesso! 🙂');
       } catch (error) {
-        toast.error('Não foi possível cadastrar o carro! 😢');
+        toast.error('Não foi atualizar o carro! 😢');
 
         console.log(error);
       }
@@ -92,7 +98,7 @@ function CreateCar() {
             >
               <option>Selecione um piloto</option>
               {data?.result.map((driver) => (
-                <option key={driver.id} value={driver.id}>
+                <option key={driver.id} value={driver['@key']}>
                   {driver.name}
                 </option>
               ))}
@@ -102,9 +108,9 @@ function CreateCar() {
         <button
           type="button"
           className=" px-4 py-2 font-bold text-white bg-blue-500 rounded-full  hover:bg-blue-700"
-          onClick={handleCreateCar}
+          onClick={handleUpdateCar}
         >
-          Cadastrar Carro
+          Atualizar Carro
         </button>
       </motion.section>
 
@@ -113,4 +119,4 @@ function CreateCar() {
   );
 }
 
-export { CreateCar };
+export { UpdateCar };
