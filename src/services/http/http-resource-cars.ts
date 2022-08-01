@@ -21,22 +21,19 @@ export interface GetByAssetTypeProps {
   result: CarResult[];
 }
 
-export function getByAssetType(type: AssetType): Promise<GetByAssetTypeProps> {
+export function getCars(): Promise<GetByAssetTypeProps> {
   return http
     .post<GetByAssetTypeProps>(`query/search`, {
       query: {
         selector: {
-          '@assetType': type,
+          '@assetType': 'car',
         },
       },
     })
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data);
 }
 
-export function getCarById(
-  type: AssetType,
-  id: number | string,
-): Promise<CarResult> {
+export function getCarById(type: AssetType, id: number): Promise<CarResult> {
   return http
     .post<CarResult>(`query/readAsset`, {
       key: {
@@ -45,4 +42,17 @@ export function getCarById(
       },
     })
     .then(({ data }: AxiosResponse<CarResult>) => data);
+}
+
+export function deleteCarById(id: number): Promise<void> {
+  const requestBody = {
+    key: {
+      '@assetType': 'car',
+      id,
+    },
+  };
+
+  return http
+    .delete<void>('invoke/deleteAsset/', { data: requestBody })
+    .then(({ data }: AxiosResponse<void>) => data);
 }

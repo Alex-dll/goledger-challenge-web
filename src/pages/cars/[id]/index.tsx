@@ -1,5 +1,5 @@
 import { ManageCar } from '../../../components';
 
-export default function CarsPage() {
+export default function CarPage() {
   return <ManageCar />;
 }

@@ -1,2 +1,2 @@
 export * from './axiosBase';
-export * from './http-resource';
+export * from './http-resource-cars';

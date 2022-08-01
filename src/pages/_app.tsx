@@ -1,3 +1,4 @@
+import { ToastContainer } from 'react-toastify';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { LayoutGroup } from 'framer-motion';
 import { AppProps } from 'next/app';
@@ -7,6 +8,7 @@ import NProgress from 'nprogress';
 import { Layout } from '../components';
 import { query } from '../services';
 
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/global.css';
 import '../styles/nprogress.css';
 
@@ -19,6 +21,17 @@ Router.events.on('routeChangeError', () => NProgress.done());
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={query}>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <LayoutGroup>
         <Layout>
           <Component {...pageProps} />

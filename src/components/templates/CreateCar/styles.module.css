@@ -1,12 +1,21 @@
 .container {
   @apply flex flex-col items-center
 }
-.carCreate {
-  @apply px-4 py-2 font-bold  bg-gray-900 text-gray-50 rounded-xl hover:bg-gray-700
-}
 
 .carList {
-  @apply flex flex-col items-center justify-center pb-8 md:flex-row md:flex-wrap gap-8
+  @apply flex flex-col items-center justify-center pb-8  gap-8
+}
+
+.linksContainer {
+  @apply flex items-center justify-center gap-8
+}
+
+.carLink {
+  @apply px-4 py-2.5 font-bold text-white text-base bg-blue-500 rounded-full hover:bg-blue-700
+}
+
+.carLinkRemove {
+  @apply px-4 py-3 font-bold text-white text-base h-10 bg-red-500 rounded-full hover:bg-red-700
 }
 
 .carCard {
@@ -29,6 +38,3 @@
   @apply max-w-sm text-center text-gray-700
 }
 
-.carLink {
-  @apply px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700
-}
