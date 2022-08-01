@@ -3,7 +3,7 @@
 }
 
 .carList {
-  @apply flex flex-col items-center justify-center pb-8  gap-8
+  @apply flex flex-col items-center justify-center pb-8  gap-8 w-full
 }
 
 .linksContainer {
