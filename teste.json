@@ -1,0 +1,125 @@
+{
+  "metadata": {},
+  "result": [
+    {
+      "@assetType": "car",
+      "@key": "car:26afef51-b1b4-585a-9475-c7941b799371",
+      "@lastTouchBy": "orgMSP",
+      "@lastTx": "updateAsset",
+      "driver": {
+        "@assetType": "driver",
+        "@key": "driver:91d84b0c-d5a8-5764-8fec-f1ac23f5d1b3"
+      },
+      "id": 99999,
+      "model": "fiat uno teste "
+    },
+    {
+      "@assetType": "car",
+      "@key": "car:9426cccd-c744-550d-b824-c6b4ef5a9cc8",
+      "@lastTouchBy": "orgMSP",
+      "@lastTx": "createAsset",
+      "driver": {
+        "@assetType": "driver",
+        "@key": "driver:aea14c36-2321-5007-b401-0a4062ef1db9"
+      },
+      "id": 38475,
+      "model": "land houver"
+    },
+    {
+      "@assetType": "car",
+      "@key": "car:94b3b17d-69b3-5479-97a5-5523b756d373",
+      "@lastTouchBy": "orgMSP",
+      "@lastTx": "createAsset",
+      "driver": {
+        "@assetType": "driver",
+        "@key": "driver:dd530dd0-39e4-5807-8b17-2d068d5ea5ff"
+      },
+      "id": 9575887155042184,
+      "model": "testmodel"
+    },
+    {
+      "@assetType": "car",
+      "@key": "car:95da2230-7cef-5e9c-92e9-6767beafb30d",
+      "@lastTouchBy": "orgMSP",
+      "@lastTx": "createAsset",
+      "driver": {
+        "@assetType": "driver",
+        "@key": "driver:95da2230-7cef-5e9c-92e9-6767beafb30d"
+      },
+      "id": 56,
+      "model": "Lewis car"
+    },
+    {
+      "@assetType": "car",
+      "@key": "car:ac054ba5-2e02-5260-911f-39560ada8be1",
+      "@lastTouchBy": "orgMSP",
+      "@lastTx": "updateAsset",
+      "driver": {
+        "@assetType": "driver",
+        "@key": "driver:91d84b0c-d5a8-5764-8fec-f1ac23f5d1b3"
+      },
+      "id": 100,
+      "model": "SIENA"
+    },
+    {
+      "@assetType": "car",
+      "@key": "car:cab5c509-3bbe-5bac-8225-82950583b7fd",
+      "@lastTouchBy": "orgMSP",
+      "@lastTx": "createAsset",
+      "driver": {
+        "@assetType": "driver",
+        "@key": "driver:74d3fb0e-b744-5c83-a139-b3f88bb3f8a9"
+      },
+      "id": 2522160319492448,
+      "model": "testsetestsetse"
+    },
+    {
+      "@assetType": "car",
+      "@key": "car:dafd6d9e-33d8-5f2a-bc7c-8d9575819887",
+      "@lastTouchBy": "orgMSP",
+      "@lastTx": "createAsset",
+      "driver": {
+        "@assetType": "driver",
+        "@key": "driver:fc9bd969-bd08-5df8-b371-8c854f103b6a"
+      },
+      "id": 50201,
+      "model": "relanpago"
+    },
+    {
+      "@assetType": "car",
+      "@key": "car:de6f70c6-8635-51f3-86e8-718639b5e8aa",
+      "@lastTouchBy": "orgMSP",
+      "@lastTx": "createAsset",
+      "driver": {
+        "@assetType": "driver",
+        "@key": "driver:dd530dd0-39e4-5807-8b17-2d068d5ea5ff"
+      },
+      "id": 52020374852814,
+      "model": "testmodel"
+    },
+    {
+      "@assetType": "car",
+      "@key": "car:e7def48a-4c43-58f9-8d84-ce5e2dfa08b3",
+      "@lastTouchBy": "orgMSP",
+      "@lastTx": "createAsset",
+      "driver": {
+        "@assetType": "driver",
+        "@key": "driver:dd530dd0-39e4-5807-8b17-2d068d5ea5ff"
+      },
+      "id": 93999,
+      "model": "fiat uno teste"
+    },
+    {
+      "@assetType": "car",
+      "@key": "car:f7d6d281-3091-5797-a4e5-f5269e3ef13e",
+      "@lastTouchBy": "orgMSP",
+      "@lastTx": "createAsset",
+      "driver": {
+        "@assetType": "driver",
+        "@key": "driver:875e0812-d0b8-5cd2-a927-685851da378d"
+      },
+      "id": 79,
+      "model": "vecna"
+    }
+  ]
+}

@@ -1,7 +1,14 @@
+import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
+import { getByAssetType } from '../../services/http';
+
 function Cars() {
+  const { data } = useQuery([`cars`], () => getByAssetType('car'));
+
+  console.log(data);
+
   return (
     <div className="flex flex-col items-center">
       <h1 className="my-10 text-4xl font-extrabold leading-none tracking-tight text-gray-900 sm:text-6xl md:my-24">
@@ -12,6 +19,8 @@ function Cars() {
         layoutId="car-img"
         className="w-full h-64 mb-10 bg-center md:mb-24 bg-[url('/carPage/car.jpg')]"
       />
+
+      <div />
 
       <motion.div
         initial={{ opacity: 0 }}
