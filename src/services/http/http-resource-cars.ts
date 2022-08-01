@@ -21,6 +21,33 @@ export interface GetByAssetTypeProps {
   result: CarResult[];
 }
 
+export interface CreateCar {
+  asset: [
+    {
+      '@assetType': string;
+      id: number;
+      driver: {
+        id: number;
+        '@assetType': string;
+        '@key': string;
+      };
+      model: string;
+    },
+  ];
+}
+
+export type CreateCarProps = {
+  payload: CreateCar;
+};
+
+export function createCar({
+  payload,
+}: CreateCarProps): Promise<GetByAssetTypeProps> {
+  return http
+    .post<GetByAssetTypeProps>(`invoke/createAsset`, payload)
+    .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data);
+}
+
 export function getCars(): Promise<GetByAssetTypeProps> {
   return http
     .post<GetByAssetTypeProps>(`query/search`, {

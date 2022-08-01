@@ -4,7 +4,9 @@ import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 
+import { useGetDrivers } from '../../../hooks/useApi';
 import { query as queryClient } from '../../../services';
+import { CreateCar as CreateCarType, createCar } from '../../../services/http';
 import { Heading, LinkGoTo } from '../../atoms';
 
 import styles from './styles.module.css';
@@ -13,20 +15,39 @@ function CreateCar() {
   const [model, setModel] = useState('');
   const [pilot, setPilot] = useState('');
 
+  const { data } = useGetDrivers();
+
+  const findesDriver = data?.result.find((driver) => driver.id > pilot);
+
   const router = useRouter();
 
-  async function handleCreateCar(carId: number) {
+  const payload: CreateCarType = {
+    asset: [
+      {
+        '@assetType': 'car',
+        id: Number(new Date().getTime()),
+        driver: {
+          id: Number(findesDriver?.id),
+          '@assetType': 'driver',
+          '@key': String(findesDriver?.['@key']),
+        },
+        model,
+      },
+    ],
+  };
+
+  async function handleCreateCar() {
     try {
-      console.log(carId);
+      await createCar({ payload });
       await queryClient.invalidateQueries(['cars']);
       router.push('/cars');
       toast.success('Carro cadastrado com sucesso! 🙂');
     } catch (error) {
+      toast.error('Não foi possível cadastrar o carro! 😢');
+
       console.log(error);
     }
   }
-
-  console.log(handleCreateCar);
 
   return (
     <main className={styles.container}>
@@ -41,9 +62,9 @@ function CreateCar() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.3 }}
-        className={styles.carList}
+        className={styles.list}
       >
-        <form className="min-w-full px-8 pt-6 pb-8 mb-4 rounded ">
+        <form className="min-w-full px-8 pt-6 pb-8 mb-4 rounded">
           <div className="mb-6">
             <label
               htmlFor="large-input"
@@ -55,7 +76,7 @@ function CreateCar() {
               type="text"
               value={model}
               onChange={(e) => setModel(e.target.value)}
-              className="block w-full p-4 mb-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500"
+              className={styles.input}
             />
             <label className="block mb-2 text-sm font-medium text-gray-900">
               Piloto do carro
@@ -63,14 +84,24 @@ function CreateCar() {
             <select
               value={pilot}
               onChange={(e) => setPilot(e.target.value)}
-              className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500"
+              className={styles.input}
             >
               <option>Selecione um piloto</option>
-              <option>Piloto 1</option>
-              <option>Piloto 2</option>
+              {data?.result.map((driver) => (
+                <option key={driver.id} value={driver.id}>
+                  {driver.name}
+                </option>
+              ))}
             </select>
           </div>
         </form>
+        <button
+          type="button"
+          className=" px-4 py-2 font-bold text-white bg-blue-500 rounded-full  hover:bg-blue-700"
+          onClick={handleCreateCar}
+        >
+          Cadastrar Carro
+        </button>
       </motion.section>
 
       <LinkGoTo title="Voltar para seus carros" href="/cars" />

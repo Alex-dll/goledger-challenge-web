@@ -2,39 +2,14 @@
   @apply flex flex-col items-center
 }
 
-.carList {
+.list {
   @apply flex flex-col items-center justify-center pb-8  gap-8 w-full
 }
 
-.linksContainer {
-  @apply flex items-center justify-center gap-8
+.input {
+  @apply block w-full p-4 my-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500
 }
 
-.carLink {
-  @apply px-4 py-2.5 font-bold text-white text-base bg-blue-500 rounded-full hover:bg-blue-700
+.buttonForm {
+  @apply px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700
 }
-
-.carLinkRemove {
-  @apply px-4 py-3 font-bold text-white text-base h-10 bg-red-500 rounded-full hover:bg-red-700
-}
-
-.carCard {
- @apply flex flex-col items-center max-w-3xl
-}
-
-.wrapper {
-  @apply flex flex-col items-center gap-2
-}
-
-.carName {
-  @apply text-2xl font-extrabold leading-none tracking-tight text-gray-900
-}
-
-.carId {
-  @apply text-sm font-semibold leading-none tracking-tight text-gray-900
-}
-
-.carPilot {
-  @apply max-w-sm text-center text-gray-700
-}
-
