@@ -45,7 +45,7 @@ function ManageDriver() {
       <Heading title="Gerencie o seu piloto" />
 
       <motion.div
-        layoutId="car-img"
+        layoutId="driver-img"
         className="w-full h-64 mb-10 bg-center bg-[url('/driversPage/driver.jpg')]"
       />
 

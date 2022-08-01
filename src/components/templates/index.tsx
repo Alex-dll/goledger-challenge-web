@@ -6,3 +6,4 @@ export * from './Home';
 export * from './ManageCar';
 export * from './ManageDriver';
 export * from './UpdateCar';
+export * from './UpdateDriver';

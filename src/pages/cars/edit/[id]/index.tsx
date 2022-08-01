@@ -1,5 +1,5 @@
 import { UpdateCar } from '../../../../components';
 
-export default function CreateCarPage() {
+export default function UpdateCarPage() {
   return <UpdateCar />;
 }
