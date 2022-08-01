@@ -1,5 +1,5 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { AnimateSharedLayout } from 'framer-motion';
+import { LayoutGroup } from 'framer-motion';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
 import NProgress from 'nprogress';
@@ -19,11 +19,11 @@ Router.events.on('routeChangeError', () => NProgress.done());
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={query}>
-      <AnimateSharedLayout>
+      <LayoutGroup>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </AnimateSharedLayout>
+      </LayoutGroup>
     </QueryClientProvider>
   );
 }
