@@ -6,12 +6,12 @@ type Props = {
   href: string;
 };
 
-function GoHome({ title, href }: Props) {
+function LinkGoTo({ title, href }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: 1, duration: 1 }}
+      transition={{ delay: 0.3, duration: 0.3 }}
       className="py-4"
     >
       <Link href={href}>
@@ -23,4 +23,4 @@ function GoHome({ title, href }: Props) {
   );
 }
 
-export { GoHome };
+export { LinkGoTo };

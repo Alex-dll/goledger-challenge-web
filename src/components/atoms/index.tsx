@@ -1,2 +1,2 @@
-export * from './GoHome';
 export * from './Heading';
+export * from './LinkGoTo';

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { useGetCar } from '../../../hooks/useApi';
-import { GoHome, Heading } from '../../atoms';
+import { Heading, LinkGoTo } from '../../atoms';
 
 import styles from './styles.module.css';
 
@@ -28,7 +28,7 @@ function ManageCar() {
       ) : (
         <motion.section className={styles.carList}>
           <div className={styles.linksContainer}>
-            <Link href="/cars/edit/[id]" as={`/cars/${data?.id}`}>
+            <Link href="/cars/edit/[id]" as={`/cars/edit/${data?.id}`}>
               <a className={styles.carLink}>Editar o Carro</a>
             </Link>
             <button type="button">
@@ -59,7 +59,7 @@ function ManageCar() {
         </motion.section>
       )}
 
-      <GoHome title="Voltar para seus carros" href="/cars" />
+      <LinkGoTo title="Voltar para seus carros" href="/cars" />
     </div>
   );
 }

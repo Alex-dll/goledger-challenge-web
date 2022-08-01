@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useGetCars } from '../../../hooks/useApi';
-import { GoHome, Heading } from '../../atoms';
+import { Heading, LinkGoTo } from '../../atoms';
 
 import styles from './styles.module.css';
 
@@ -47,7 +47,7 @@ function Cars() {
         ))}
       </motion.section>
 
-      <GoHome title="Voltar para a home" href="/" />
+      <LinkGoTo title="Voltar para a home" href="/" />
     </div>
   );
 }
