@@ -61,7 +61,7 @@ function UpdateCar() {
 
   return (
     <main className={styles.container}>
-      <Heading title="Crie um novo carro" />
+      <Heading title="Atualize o seu carro" />
 
       <motion.div
         layoutId="car-img"

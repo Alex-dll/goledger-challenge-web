@@ -15,19 +15,19 @@ function Home() {
         />
         <HomeCard
           layoutId="racer-img"
-          href="#"
+          href="/drivers"
           imgSrc="/home/racer.jpg"
           title="Pilotos"
         />
         <HomeCard
           layoutId="team-img"
-          href="#"
+          href="/teams"
           imgSrc="/home/team.jpg"
           title="Times"
         />
         <HomeCard
           layoutId="event-img"
-          href="#"
+          href="/events"
           imgSrc="/home/event.jpg"
           title="Eventos"
         />

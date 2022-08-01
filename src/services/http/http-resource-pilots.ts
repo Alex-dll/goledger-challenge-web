@@ -33,7 +33,7 @@ export function getDrivers(): Promise<GetByAssetTypeProps> {
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data);
 }
 
-export function getDriverById(id: string): Promise<Result> {
+export function getDriverById(id: number): Promise<Result> {
   return http
     .post<Result>(`query/readAsset`, {
       key: {
@@ -44,7 +44,7 @@ export function getDriverById(id: string): Promise<Result> {
     .then(({ data }: AxiosResponse<Result>) => data);
 }
 
-export function deleteDriverById(id: string): Promise<void> {
+export function deleteDriverById(id: number): Promise<void> {
   const requestBody = {
     key: {
       '@assetType': 'driver',

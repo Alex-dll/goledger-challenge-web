@@ -24,7 +24,7 @@ export function useGetDrivers() {
   });
 }
 
-export function useGetDriverById(id: string) {
+export function useGetDriverById(id: number) {
   return useQuery([`driver${id}`], () => getDriverById(id), {
     staleTime: 1000 * 60,
   });

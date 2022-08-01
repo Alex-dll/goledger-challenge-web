@@ -2,26 +2,26 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useGetCars } from '../../../hooks/useApi';
+import { useGetDrivers } from '../../../hooks/useApi';
 import { Heading, LinkGoTo, Loading } from '../../atoms';
 
 import styles from './styles.module.css';
 
-function Cars() {
-  const { data, isLoading } = useGetCars();
+function Drivers() {
+  const { data, isLoading } = useGetDrivers();
 
   return (
     <main className={styles.container}>
-      <Heading title="Gerencie seus carros" />
+      <Heading title="Gerencie seus pilotos" />
 
       <motion.div
-        layoutId="car-img"
-        className="w-full h-64 mb-10 bg-center  bg-[url('/carPage/car.jpg')]"
+        layoutId="racer-img"
+        className="w-full h-64 mb-10 bg-center  bg-[url('/driversPage/driver.jpg')]"
       />
 
       <div className="flex justify-center w-full pb-12">
-        <Link href="/cars/create" as="/cars/create">
-          <a className={styles.carCreate}>Cadastre um carro</a>
+        <Link href="/drivers/create" as="/drivers/create">
+          <a className={styles.carCreate}>Cadastre um piloto</a>
         </Link>
       </div>
 
@@ -29,28 +29,28 @@ function Cars() {
         <Loading />
       ) : (
         <motion.section className={styles.carList}>
-          {data?.result.map((car) => (
+          {data?.result.map((driver) => (
             <motion.div
-              layoutId={car['@key']}
-              key={car['@key']}
+              layoutId={driver['@key']}
+              key={driver['@key']}
               className={styles.carCard}
             >
               <Image
-                src="/carPage/iconCar.png"
+                src="/driversPage/iconDriver.png"
                 alt="Icone de um carro vermelho"
                 className="rounded-full"
                 width={64}
                 height={64}
               />
               <div className={styles.wrapper}>
-                <h2 className={styles.carName}>{car.model}</h2>
-                <p className={styles.carId}>{`Id do Carro: ${car.id}`}</p>
+                <h2 className={styles.carName}>{driver.name}</h2>
+                <p className={styles.carId}>{`Id do piloto: ${driver.id}`}</p>
                 <p
                   className={styles.carPilot}
-                >{`Id do piloto: ${car.driver['@key']}`}</p>
+                >{`Id da equipe do piloto: ${driver.team['@key']}`}</p>
               </div>
-              <Link href="/cars/[id]" as={`/cars/${car.id}`}>
-                <a className={styles.carLink}>Ver carro</a>
+              <Link href="/drivers/[id]" as={`/drivers/${driver.id}`}>
+                <a className={styles.carLink}>Ver Piloto</a>
               </Link>
             </motion.div>
           ))}
@@ -62,4 +62,4 @@ function Cars() {
   );
 }
 
-export { Cars };
+export { Drivers };

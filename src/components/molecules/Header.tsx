@@ -18,7 +18,7 @@ function Header() {
         <Link href="/cars">
           <a className="tracking-wide hover:text-blue-300">Carros</a>
         </Link>
-        <Link href="/racers">
+        <Link href="/drivers">
           <a className="tracking-wide hover:text-blue-300">Pilotos</a>
         </Link>
         <Link href="/teams">
