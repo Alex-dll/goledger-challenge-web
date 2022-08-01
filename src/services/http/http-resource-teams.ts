@@ -2,104 +2,96 @@ import { AxiosResponse } from 'axios';
 
 import { http } from './axiosBase';
 
-interface Driver {
-  '@assetType': string;
-  '@key': string;
-}
-
-interface CarResult {
+interface Result {
   '@assetType': string;
   '@key': string;
   '@lastTouchBy': string;
   '@lastTx': string;
-  driver: Driver;
   id: number;
-  model: string;
+  name: string;
 }
 
 interface GetByAssetTypeProps {
-  result: CarResult[];
+  result: Result[];
 }
 
-export interface CreateCar {
+export interface CreateTeams {
   asset: [
     {
       '@assetType': string;
       id: number;
-      driver: {
-        id: number;
+      name: string;
+      team: {
         '@assetType': string;
         '@key': string;
       };
-      model: string;
     },
   ];
 }
 
-export interface UpdateCar {
+export interface UpdateTeam {
   update: {
     '@assetType': string;
     id: number;
-    driver: {
-      id: number;
+    name: string;
+    team: {
       '@assetType': string;
       '@key': string;
     };
-    model: string;
   };
 }
 
-export type CreateCarProps = {
-  payload: CreateCar;
+type CreateCreateProps = {
+  payload: CreateTeams;
 };
 
-export type UpdateCarProps = {
-  payload: UpdateCar;
+type UpdateTeamProps = {
+  payload: UpdateTeam;
 };
 
-export function createCar({
+export function createTeam({
   payload,
-}: CreateCarProps): Promise<GetByAssetTypeProps> {
+}: CreateCreateProps): Promise<GetByAssetTypeProps> {
   return http
     .post<GetByAssetTypeProps>(`invoke/createAsset`, payload)
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data);
 }
 
-export function updateCarAsset({
+export function updateTeamAsset({
   payload,
-}: UpdateCarProps): Promise<GetByAssetTypeProps> {
+}: UpdateTeamProps): Promise<GetByAssetTypeProps> {
   return http
     .put<GetByAssetTypeProps>(`invoke/updateAsset`, payload)
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data);
 }
 
-export function getCars(): Promise<GetByAssetTypeProps> {
+export function getTeams(): Promise<GetByAssetTypeProps> {
   return http
     .post<GetByAssetTypeProps>(`query/search`, {
       query: {
         selector: {
-          '@assetType': 'car',
+          '@assetType': 'team',
         },
       },
     })
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data);
 }
 
-export function getCarById(id: number): Promise<CarResult> {
+export function getTeamById(id: number): Promise<Result> {
   return http
-    .post<CarResult>(`query/readAsset`, {
+    .post<Result>(`query/readAsset`, {
       key: {
-        '@assetType': 'car',
+        '@assetType': 'team',
         id,
       },
     })
-    .then(({ data }: AxiosResponse<CarResult>) => data);
+    .then(({ data }: AxiosResponse<Result>) => data);
 }
 
-export function deleteCarById(id: number): Promise<void> {
+export function DeleteTeamById(id: number): Promise<void> {
   const requestBody = {
     key: {
-      '@assetType': 'car',
+      '@assetType': 'team',
       id,
     },
   };

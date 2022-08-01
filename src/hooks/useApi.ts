@@ -1,10 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getCarById, getCars } from '../services/http';
 import {
+  getCarById,
+  getCars,
   getDriverById,
   getDrivers,
-} from '../services/http/http-resource-pilots';
+  getTeamById,
+  getTeams,
+} from '../services/http';
 
 export function useGetCars() {
   return useQuery([`cars`], () => getCars(), {
@@ -26,6 +29,18 @@ export function useGetDrivers() {
 
 export function useGetDriverById(id: number) {
   return useQuery([`driver${id}`], () => getDriverById(id), {
+    staleTime: 1000 * 60,
+  });
+}
+
+export function useGetTeams() {
+  return useQuery([`teams`], () => getTeams(), {
+    staleTime: 1000 * 60,
+  });
+}
+
+export function useGetTeamById(id: number) {
+  return useQuery([`team${id}`], () => getTeamById(id), {
     staleTime: 1000 * 60,
   });
 }

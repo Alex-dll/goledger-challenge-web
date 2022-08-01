@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 import { useGetDriverById } from '../../../hooks/useApi';
 import { query as queryClient } from '../../../services';
-import { deleteDriverById } from '../../../services/http/http-resource-pilots';
+import { DeleteDriverById } from '../../../services/http';
 import { Heading, LinkGoTo, Loading } from '../../atoms';
 
 import styles from './styles.module.css';
@@ -26,7 +26,7 @@ function ManageDriver() {
 
     if (confirmation) {
       try {
-        await deleteDriverById(driverId);
+        await DeleteDriverById(driverId);
         await queryClient.invalidateQueries(['drivers']);
         router.push('/drivers');
         toast.success('Piloto deletado com sucesso! 🙂');

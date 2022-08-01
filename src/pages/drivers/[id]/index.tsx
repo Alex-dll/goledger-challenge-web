@@ -1,5 +1,5 @@
 import { ManageDriver } from '../../../components';
 
-export default function CarPage() {
+export default function DriverPage() {
   return <ManageDriver />;
 }

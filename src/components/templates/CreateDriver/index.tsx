@@ -4,49 +4,51 @@ import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 
-import { useGetDrivers } from '../../../hooks/useApi';
+import { useGetTeams } from '../../../hooks/useApi';
 import { query as queryClient } from '../../../services';
-import { CreateCar as CreateCarType, createCar } from '../../../services/http';
+import {
+  CreateDriver as CreateDriverProps,
+  createDriver,
+} from '../../../services/http';
 import { Heading, LinkGoTo } from '../../atoms';
 
 import styles from './styles.module.css';
 
-function CreateCar() {
-  const [model, setModel] = useState('');
-  const [pilot, setPilot] = useState('');
+function CreateDriver() {
+  const [name, setName] = useState('');
+  const [team, setTeam] = useState('');
 
-  const { data } = useGetDrivers();
+  const { data } = useGetTeams();
 
-  const findesDriver = data?.result.find((driver) => driver.id > pilot);
+  const findesTeam = data?.result.find((teams) => teams['@key'] === team);
 
   const router = useRouter();
 
-  const payload: CreateCarType = {
+  const payload: CreateDriverProps = {
     asset: [
       {
-        '@assetType': 'car',
+        '@assetType': 'driver',
         id: Number(new Date().getTime()),
-        driver: {
-          id: Number(findesDriver?.id),
-          '@assetType': 'driver',
-          '@key': String(findesDriver?.['@key']),
+        name,
+        team: {
+          '@assetType': 'team',
+          '@key': String(findesTeam?.['@key']),
         },
-        model,
       },
     ],
   };
 
   async function handleCreateCar() {
-    if (!model || !pilot) {
+    if (!name || !team) {
       toast.error('Preencha todos os campos!');
     } else {
       try {
-        await createCar({ payload });
-        await queryClient.invalidateQueries(['cars']);
-        router.push('/cars');
-        toast.success('Carro cadastrado com sucesso! 🙂');
+        await createDriver({ payload });
+        await queryClient.invalidateQueries(['drivers']);
+        router.push('/drivers');
+        toast.success('Piloto cadastrado com sucesso! 🙂');
       } catch (error) {
-        toast.error('Não foi possível cadastrar o carro! 😢');
+        toast.error('Não foi possível cadastrar o piloto! 😢');
 
         console.log(error);
       }
@@ -55,11 +57,11 @@ function CreateCar() {
 
   return (
     <main className={styles.container}>
-      <Heading title="Cadastre um novo carro" />
+      <Heading title="Cadastre um novo piloto" />
 
       <motion.div
         layoutId="car-img"
-        className="w-full h-64 mb-10 bg-center bg-[url('/carPage/car.jpg')]"
+        className="w-full h-64 mb-10 bg-center bg-[url('/driversPage/driver.jpg')]"
       />
 
       <motion.section
@@ -74,26 +76,26 @@ function CreateCar() {
               htmlFor="large-input"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Modelo do Carro
+              Nome do Piloto
             </label>
             <input
               type="text"
-              value={model}
-              onChange={(e) => setModel(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className={styles.input}
             />
             <label className="block mb-2 text-sm font-medium text-gray-900">
-              Piloto do carro
+              Time do Piloto
             </label>
             <select
-              value={pilot}
-              onChange={(e) => setPilot(e.target.value)}
+              value={team}
+              onChange={(e) => setTeam(e.target.value)}
               className={styles.input}
             >
-              <option>Selecione um piloto</option>
-              {data?.result.map((driver) => (
-                <option key={driver.id} value={driver.id}>
-                  {driver.name}
+              <option>Selecione um time</option>
+              {data?.result.map((teams) => (
+                <option key={teams.id} value={teams['@key']}>
+                  {teams.name}
                 </option>
               ))}
             </select>
@@ -104,13 +106,13 @@ function CreateCar() {
           className=" px-4 py-2 font-bold text-white bg-blue-500 rounded-full  hover:bg-blue-700"
           onClick={handleCreateCar}
         >
-          Cadastrar Carro
+          Cadastrar Piloto
         </button>
       </motion.section>
 
-      <LinkGoTo title="Voltar para seus carros" href="/cars" />
+      <LinkGoTo title="Voltar para os pilotos" href="/drivers" />
     </main>
   );
 }
 
-export { CreateCar };
+export { CreateDriver };
