@@ -5,6 +5,6 @@ module.exports = {
     autoprefixer: {},
     cssnano: {},
     'postcss-nested': {},
-    'postcss-flexbugs-fixes': {}
-  }
+    'postcss-flexbugs-fixes': {},
+  },
 }

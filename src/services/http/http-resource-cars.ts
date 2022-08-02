@@ -57,9 +57,7 @@ export type UpdateCarProps = {
   payload: UpdateCar
 }
 
-export function createCar({
-  payload,
-}: CreateCarProps): Promise<GetByAssetTypeProps> {
+export function createCar({ payload }: CreateCarProps): Promise<GetByAssetTypeProps> {
   return http
     .post<GetByAssetTypeProps>(`invoke/createAsset`, payload)
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data)
