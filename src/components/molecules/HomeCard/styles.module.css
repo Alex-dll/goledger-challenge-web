@@ -1,5 +1,5 @@
 .wrapper {
-  @apply relative z-10 flex flex-col items-center justify-center cursor-pointer align-center ali h-60 w-60 rounded-xl hover:brightness-75 transition
+  @apply relative z-10 flex flex-col items-center justify-center cursor-pointer h-60 w-60 rounded-xl hover:brightness-75 transition
 }
 
 .image {
