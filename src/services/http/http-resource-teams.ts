@@ -1,12 +1,12 @@
-import { AxiosResponse } from 'axios';
+import { AxiosResponse } from "axios";
 
-import { http } from './axiosBase';
+import { http } from "./axiosBase";
 
 interface Result {
-  '@assetType': string;
-  '@key': string;
-  '@lastTouchBy': string;
-  '@lastTx': string;
+  "@assetType": string;
+  "@key": string;
+  "@lastTouchBy": string;
+  "@lastTx": string;
   id: number;
   name: string;
 }
@@ -18,25 +18,25 @@ interface GetByAssetTypeProps {
 export interface CreateTeams {
   asset: [
     {
-      '@assetType': string;
+      "@assetType": string;
       id: number;
       name: string;
       team: {
-        '@assetType': string;
-        '@key': string;
+        "@assetType": string;
+        "@key": string;
       };
-    },
+    }
   ];
 }
 
 export interface UpdateTeam {
   update: {
-    '@assetType': string;
+    "@assetType": string;
     id: number;
     name: string;
     team: {
-      '@assetType': string;
-      '@key': string;
+      "@assetType": string;
+      "@key": string;
     };
   };
 }
@@ -70,7 +70,7 @@ export function getTeams(): Promise<GetByAssetTypeProps> {
     .post<GetByAssetTypeProps>(`query/search`, {
       query: {
         selector: {
-          '@assetType': 'team',
+          "@assetType": "team",
         },
       },
     })
@@ -81,7 +81,7 @@ export function getTeamById(id: number): Promise<Result> {
   return http
     .post<Result>(`query/readAsset`, {
       key: {
-        '@assetType': 'team',
+        "@assetType": "team",
         id,
       },
     })
@@ -91,12 +91,12 @@ export function getTeamById(id: number): Promise<Result> {
 export function DeleteTeamById(id: number): Promise<void> {
   const requestBody = {
     key: {
-      '@assetType': 'team',
+      "@assetType": "team",
       id,
     },
   };
 
   return http
-    .delete<void>('invoke/deleteAsset/', { data: requestBody })
+    .delete<void>("invoke/deleteAsset/", { data: requestBody })
     .then(({ data }: AxiosResponse<void>) => data);
 }

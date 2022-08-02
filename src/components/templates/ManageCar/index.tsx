@@ -1,16 +1,16 @@
 /* eslint-disable no-console */
-import { toast } from 'react-toastify';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-import { useGetCar } from '../../../hooks/useApi';
-import { query as queryClient } from '../../../services';
-import { deleteCarById } from '../../../services/http';
-import { Heading, LinkGoTo, Loading } from '../../atoms';
+import { useGetCar } from "../../../hooks/useApi";
+import { query as queryClient } from "../../../services";
+import { deleteCarById } from "../../../services/http";
+import { Heading, LinkGoTo, Loading } from "../../atoms";
 
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
 
 function ManageCar() {
   const router = useRouter();
@@ -21,20 +21,20 @@ function ManageCar() {
   async function DeleteCar(carId: number) {
     // eslint-disable-next-line no-alert
     const confirmation = confirm(
-      'Você tem certeza que deseja excluir este carro?',
+      "Você tem certeza que deseja excluir este carro?"
     );
 
     if (confirmation) {
       try {
         await deleteCarById(carId);
-        await queryClient.invalidateQueries(['cars']);
-        router.push('/cars');
-        toast.success('Carro deletado com sucesso! 🙂');
+        await queryClient.invalidateQueries(["cars"]);
+        router.push("/cars");
+        toast.success("Carro deletado com sucesso! 🙂");
       } catch (error) {
         console.log(error);
       }
     } else {
-      console.log('Cancelado');
+      console.log("Cancelado");
     }
   }
 
@@ -61,8 +61,8 @@ function ManageCar() {
           </div>
 
           <motion.div
-            layoutId={data?.['@key']}
-            key={data?.['@key']}
+            layoutId={data?.["@key"]}
+            key={data?.["@key"]}
             className={styles.carCard}
           >
             <Image
@@ -76,11 +76,11 @@ function ManageCar() {
               <h2 className={styles.carName}>{data?.model}</h2>
               <p
                 className={styles.carId}
-              >{`Proprietario: ${data?.['@lastTouchBy']}`}</p>
+              >{`Proprietario: ${data?.["@lastTouchBy"]}`}</p>
               <p className={styles.carId}>{`Id do Carro: ${data?.id}`}</p>
               <p
                 className={styles.carPilot}
-              >{`Id do piloto: ${data?.driver['@key']}`}</p>
+              >{`Id do piloto: ${data?.driver["@key"]}`}</p>
             </div>
           </motion.div>
         </motion.section>

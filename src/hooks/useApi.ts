@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 import {
   getCarById,
@@ -7,7 +7,7 @@ import {
   getDrivers,
   getTeamById,
   getTeams,
-} from '../services/http';
+} from "../services/http";
 
 export function useGetCars() {
   return useQuery([`cars`], () => getCars(), {

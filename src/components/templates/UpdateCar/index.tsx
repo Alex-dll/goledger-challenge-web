@@ -1,18 +1,18 @@
 /* eslint-disable no-console */
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
-import { useGetCar, useGetDrivers } from '../../../hooks/useApi';
-import { query as queryClient } from '../../../services';
+import { useGetCar, useGetDrivers } from "../../../hooks/useApi";
+import { query as queryClient } from "../../../services";
 import {
   UpdateCar as UpdateCarProps,
   updateCarAsset,
-} from '../../../services/http';
-import { Heading, LinkGoTo } from '../../atoms';
+} from "../../../services/http";
+import { Heading, LinkGoTo } from "../../atoms";
 
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
 
 function UpdateCar() {
   const router = useRouter();
@@ -23,20 +23,20 @@ function UpdateCar() {
   const { data } = useGetDrivers();
 
   const [model, setModel] = useState(String(car.data?.model));
-  const [pilot, setPilot] = useState(car?.data?.driver['@key']);
+  const [pilot, setPilot] = useState(car?.data?.driver["@key"]);
 
-  const findesDriver = data?.result.find((driver) => driver['@key'] === pilot);
+  const findesDriver = data?.result.find((driver) => driver["@key"] === pilot);
 
   console.log(findesDriver);
 
   const payload: UpdateCarProps = {
     update: {
-      '@assetType': 'car',
+      "@assetType": "car",
       id: Number(car.data?.id),
       driver: {
         id: Number(findesDriver?.id),
-        '@assetType': 'driver',
-        '@key': String(findesDriver?.['@key']),
+        "@assetType": "driver",
+        "@key": String(findesDriver?.["@key"]),
       },
       model,
     },
@@ -44,15 +44,15 @@ function UpdateCar() {
 
   async function handleUpdateCar() {
     if (!model || !pilot) {
-      toast.error('Preencha todos os campos!');
+      toast.error("Preencha todos os campos!");
     } else {
       try {
         await updateCarAsset({ payload });
-        await queryClient.invalidateQueries(['cars']);
-        router.push('/cars');
-        toast.success('Carro atualizado com sucesso! 🙂');
+        await queryClient.invalidateQueries(["cars"]);
+        router.push("/cars");
+        toast.success("Carro atualizado com sucesso! 🙂");
       } catch (error) {
-        toast.error('Não foi atualizar o carro! 😢');
+        toast.error("Não foi atualizar o carro! 😢");
 
         console.log(error);
       }
@@ -98,7 +98,7 @@ function UpdateCar() {
             >
               <option>Selecione um piloto</option>
               {data?.result.map((driver) => (
-                <option key={driver.id} value={driver['@key']}>
+                <option key={driver.id} value={driver["@key"]}>
                   {driver.name}
                 </option>
               ))}

@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import Link from 'next/link';
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 
-import { useGetCars } from '../../../hooks/useApi';
-import { Heading, LinkGoTo, Loading } from '../../atoms';
+import { useGetCars } from "../../../hooks/useApi";
+import { Heading, LinkGoTo, Loading } from "../../atoms";
 
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
 
 function Cars() {
   const { data, isLoading } = useGetCars();
@@ -31,8 +31,8 @@ function Cars() {
         <motion.section className={styles.carList}>
           {data?.result.map((car) => (
             <motion.div
-              layoutId={car['@key']}
-              key={car['@key']}
+              layoutId={car["@key"]}
+              key={car["@key"]}
               className={styles.carCard}
             >
               <Image
@@ -47,7 +47,7 @@ function Cars() {
                 <p className={styles.carId}>{`Id do Carro: ${car.id}`}</p>
                 <p
                   className={styles.carPilot}
-                >{`Id do piloto: ${car.driver['@key']}`}</p>
+                >{`Id do piloto: ${car.driver["@key"]}`}</p>
               </div>
               <Link href="/cars/[id]" as={`/cars/${car.id}`}>
                 <a className={styles.carLink}>Ver carro</a>

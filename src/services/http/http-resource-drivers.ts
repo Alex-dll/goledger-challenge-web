@@ -1,17 +1,17 @@
-import { AxiosResponse } from 'axios';
+import { AxiosResponse } from "axios";
 
-import { http } from './axiosBase';
+import { http } from "./axiosBase";
 
 interface Team {
-  '@assetType': string;
-  '@key': string;
+  "@assetType": string;
+  "@key": string;
 }
 
 interface Result {
-  '@assetType': string;
-  '@key': string;
-  '@lastTouchBy': string;
-  '@lastTx': string;
+  "@assetType": string;
+  "@key": string;
+  "@lastTouchBy": string;
+  "@lastTx": string;
   id: string;
   name: string;
   team: Team;
@@ -24,25 +24,25 @@ interface GetByAssetTypeProps {
 export interface CreateDriver {
   asset: [
     {
-      '@assetType': string;
+      "@assetType": string;
       id: number;
       name: string;
       team: {
-        '@assetType': string;
-        '@key': string;
+        "@assetType": string;
+        "@key": string;
       };
-    },
+    }
   ];
 }
 
 export interface UpdateDriver {
   update: {
-    '@assetType': string;
+    "@assetType": string;
     id: number;
     name: string;
     team: {
-      '@assetType': string;
-      '@key': string;
+      "@assetType": string;
+      "@key": string;
     };
   };
 }
@@ -76,7 +76,7 @@ export function getDrivers(): Promise<GetByAssetTypeProps> {
     .post<GetByAssetTypeProps>(`query/search`, {
       query: {
         selector: {
-          '@assetType': 'driver',
+          "@assetType": "driver",
         },
       },
     })
@@ -87,7 +87,7 @@ export function getDriverById(id: number): Promise<Result> {
   return http
     .post<Result>(`query/readAsset`, {
       key: {
-        '@assetType': 'driver',
+        "@assetType": "driver",
         id,
       },
     })
@@ -97,12 +97,12 @@ export function getDriverById(id: number): Promise<Result> {
 export function DeleteDriverById(id: number): Promise<void> {
   const requestBody = {
     key: {
-      '@assetType': 'driver',
+      "@assetType": "driver",
       id,
     },
   };
 
   return http
-    .delete<void>('invoke/deleteAsset/', { data: requestBody })
+    .delete<void>("invoke/deleteAsset/", { data: requestBody })
     .then(({ data }: AxiosResponse<void>) => data);
 }

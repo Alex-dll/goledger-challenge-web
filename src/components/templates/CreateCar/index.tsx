@@ -1,19 +1,18 @@
-/* eslint-disable no-console */
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 
-import { useGetDrivers } from '../../../hooks/useApi';
-import { query as queryClient } from '../../../services';
-import { CreateCar as CreateCarType, createCar } from '../../../services/http';
-import { Heading, LinkGoTo } from '../../atoms';
+import { useGetDrivers } from "../../../hooks/useApi";
+import { query as queryClient } from "../../../services";
+import { CreateCar as CreateCarType, createCar } from "../../../services/http";
+import { Heading, LinkGoTo } from "../../atoms";
 
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
 
 function CreateCar() {
-  const [model, setModel] = useState('');
-  const [pilot, setPilot] = useState('');
+  const [model, setModel] = useState("");
+  const [pilot, setPilot] = useState("");
 
   const { data } = useGetDrivers();
 
@@ -24,12 +23,12 @@ function CreateCar() {
   const payload: CreateCarType = {
     asset: [
       {
-        '@assetType': 'car',
+        "@assetType": "car",
         id: Number(new Date().getTime()),
         driver: {
           id: Number(findesDriver?.id),
-          '@assetType': 'driver',
-          '@key': String(findesDriver?.['@key']),
+          "@assetType": "driver",
+          "@key": String(findesDriver?.["@key"]),
         },
         model,
       },
@@ -38,17 +37,15 @@ function CreateCar() {
 
   async function handleCreateCar() {
     if (!model || !pilot) {
-      toast.error('Preencha todos os campos!');
+      toast.error("Preencha todos os campos!");
     } else {
       try {
         await createCar({ payload });
-        await queryClient.invalidateQueries(['cars']);
-        router.push('/cars');
-        toast.success('Carro cadastrado com sucesso! 🙂');
+        await queryClient.invalidateQueries(["cars"]);
+        router.push("/cars");
+        toast.success("Carro cadastrado com sucesso! 🙂");
       } catch (error) {
-        toast.error('Não foi possível cadastrar o carro! 😢');
-
-        console.log(error);
+        toast.error("Não foi possível cadastrar o carro! 😢");
       }
     }
   }

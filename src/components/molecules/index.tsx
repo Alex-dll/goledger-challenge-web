@@ -1,2 +1,2 @@
-export * from './Header';
-export * from './HomeCard';
+export * from "./Header";
+export * from "./HomeCard";

@@ -1,5 +1,5 @@
-import { Heading } from '../atoms';
-import { HomeCard } from '../molecules';
+import { Heading } from "../atoms";
+import { HomeCard } from "../molecules";
 
 function Home() {
   return (

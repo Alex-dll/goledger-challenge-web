@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
-import { Header } from '../molecules';
+import { Header } from "../molecules";
 
 type Props = {
   children: ReactNode;

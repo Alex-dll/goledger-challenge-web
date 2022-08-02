@@ -1,4 +1,4 @@
-import { LinkGoTo } from '../components';
+import { LinkGoTo } from "../components";
 
 export default function Page404() {
   return (
