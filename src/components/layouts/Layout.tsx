@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react'
 
-import { Header } from "../molecules";
+import { Header } from '../molecules'
 
 type Props = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 function Layout({ children }: Props) {
   return (
@@ -12,7 +12,7 @@ function Layout({ children }: Props) {
       <Header />
       {children}
     </div>
-  );
+  )
 }
 
-export { Layout };
+export { Layout }

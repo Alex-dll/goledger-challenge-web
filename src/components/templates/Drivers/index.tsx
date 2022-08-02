@@ -1,14 +1,14 @@
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { useGetDrivers } from "../../../hooks/useApi";
-import { Heading, LinkGoTo, Loading } from "../../atoms";
+import { useGetDrivers } from '../../../hooks/useApi'
+import { Heading, LinkGoTo, Loading } from '../../atoms'
 
-import styles from "./styles.module.css";
+import styles from './styles.module.css'
 
 function Drivers() {
-  const { data, isLoading } = useGetDrivers();
+  const { data, isLoading } = useGetDrivers()
 
   return (
     <main className={styles.container}>
@@ -31,8 +31,8 @@ function Drivers() {
         <motion.section className={styles.carList}>
           {data?.result.map((driver) => (
             <motion.div
-              layoutId={driver["@key"]}
-              key={driver["@key"]}
+              layoutId={driver['@key']}
+              key={driver['@key']}
               className={styles.carCard}
             >
               <Image
@@ -47,7 +47,7 @@ function Drivers() {
                 <p className={styles.carId}>{`Id do piloto: ${driver.id}`}</p>
                 <p
                   className={styles.carPilot}
-                >{`Id da equipe do piloto: ${driver.team["@key"]}`}</p>
+                >{`Id da equipe do piloto: ${driver.team['@key']}`}</p>
               </div>
               <Link href="/drivers/[id]" as={`/drivers/${driver.id}`}>
                 <a className={styles.carLink}>Ver Piloto</a>
@@ -59,7 +59,7 @@ function Drivers() {
 
       <LinkGoTo title="Voltar para a home" href="/" />
     </main>
-  );
+  )
 }
 
-export { Drivers };
+export { Drivers }

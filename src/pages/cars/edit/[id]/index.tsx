@@ -1,5 +1,5 @@
-import { UpdateCar } from "../../../../components";
+import { UpdateCar } from '../../../../components'
 
 export default function UpdateCarPage() {
-  return <UpdateCar />;
+  return <UpdateCar />
 }

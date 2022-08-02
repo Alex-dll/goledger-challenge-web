@@ -1,10 +1,10 @@
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 type Props = {
-  title: string;
-  href: string;
-};
+  title: string
+  href: string
+}
 
 function LinkGoTo({ title, href }: Props) {
   return (
@@ -20,7 +20,7 @@ function LinkGoTo({ title, href }: Props) {
         </a>
       </Link>
     </motion.div>
-  );
+  )
 }
 
-export { LinkGoTo };
+export { LinkGoTo }

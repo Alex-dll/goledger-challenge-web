@@ -1,5 +1,5 @@
-import { ManageDriver } from "../../../components";
+import { ManageDriver } from '../../../components'
 
 export default function DriverPage() {
-  return <ManageDriver />;
+  return <ManageDriver />
 }

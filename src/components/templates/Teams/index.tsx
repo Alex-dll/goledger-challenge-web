@@ -1,14 +1,14 @@
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { useGetTeams } from "../../../hooks/useApi";
-import { Heading, LinkGoTo, Loading } from "../../atoms";
+import { useGetTeams } from '../../../hooks/useApi'
+import { Heading, LinkGoTo, Loading } from '../../atoms'
 
-import styles from "./styles.module.css";
+import styles from './styles.module.css'
 
 function Teams() {
-  const { data, isLoading } = useGetTeams();
+  const { data, isLoading } = useGetTeams()
 
   return (
     <main className={styles.container}>
@@ -31,8 +31,8 @@ function Teams() {
         <motion.section className={styles.carList}>
           {data?.result.map((teams) => (
             <motion.div
-              layoutId={teams["@key"]}
-              key={teams["@key"]}
+              layoutId={teams['@key']}
+              key={teams['@key']}
               className={styles.carCard}
             >
               <Image
@@ -44,9 +44,7 @@ function Teams() {
               />
               <div className={styles.wrapper}>
                 <h2 className={styles.carName}>{teams.name}</h2>
-                <p
-                  className={styles.carPilot}
-                >{`Id do time: ${teams["@key"]}`}</p>
+                <p className={styles.carPilot}>{`Id do time: ${teams['@key']}`}</p>
               </div>
               <Link href="/teams/[id]" as={`/teams/${teams.id}`}>
                 <a className={styles.carLink}>Ver time</a>
@@ -58,7 +56,7 @@ function Teams() {
 
       <LinkGoTo title="Voltar para a home" href="/" />
     </main>
-  );
+  )
 }
 
-export { Teams };
+export { Teams }

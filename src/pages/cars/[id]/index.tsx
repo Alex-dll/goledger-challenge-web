@@ -1,5 +1,5 @@
-import { ManageCar } from "../../../components";
+import { ManageCar } from '../../../components'
 
 export default function CarPage() {
-  return <ManageCar />;
+  return <ManageCar />
 }

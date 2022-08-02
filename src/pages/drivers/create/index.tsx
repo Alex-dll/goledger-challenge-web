@@ -1,5 +1,5 @@
-import { CreateDriver } from "../../../components";
+import { CreateDriver } from '../../../components'
 
 export default function CreateDriverPage() {
-  return <CreateDriver />;
+  return <CreateDriver />
 }

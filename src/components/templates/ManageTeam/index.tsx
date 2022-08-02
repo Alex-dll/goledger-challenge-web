@@ -1,42 +1,40 @@
 /* eslint-disable no-console */
-import { toast } from "react-toastify";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { toast } from 'react-toastify'
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-import { useGetTeamById } from "../../../hooks/useApi";
-import { query as queryClient } from "../../../services";
-import { DeleteDriverById } from "../../../services/http";
-import { Heading, LinkGoTo, Loading } from "../../atoms";
+import { useGetTeamById } from '../../../hooks/useApi'
+import { query as queryClient } from '../../../services'
+import { DeleteDriverById } from '../../../services/http'
+import { Heading, LinkGoTo, Loading } from '../../atoms'
 
-import styles from "./styles.module.css";
+import styles from './styles.module.css'
 
 function ManageTeam() {
-  const router = useRouter();
-  const { id } = router.query;
+  const router = useRouter()
+  const { id } = router.query
 
-  const { isLoading, data } = useGetTeamById(Number(id));
+  const { isLoading, data } = useGetTeamById(Number(id))
 
   async function DeleteTeam(teamId: number) {
     // eslint-disable-next-line no-alert
-    const confirmation = confirm(
-      "Você tem certeza que deseja excluir este time?"
-    );
+    const confirmation = confirm('Você tem certeza que deseja excluir este time?')
 
     if (confirmation) {
       try {
-        await DeleteDriverById(teamId);
-        await queryClient.invalidateQueries(["teams"]);
-        router.push("/teams");
-        toast.success("Time deletado com sucesso! 🙂");
+        await DeleteDriverById(teamId)
+        await queryClient.invalidateQueries(['teams'])
+        router.push('/teams')
+        toast.success('Time deletado com sucesso! 🙂')
       } catch (error) {
-        toast.error("Não foi possível deletar o time! 😢");
+        toast.error('Não foi possível deletar o time! 😢')
 
-        console.log(error);
+        console.log(error)
       }
     } else {
-      console.log("Cancelado");
+      console.log('Cancelado')
     }
   }
 
@@ -63,8 +61,8 @@ function ManageTeam() {
           </div>
 
           <motion.div
-            layoutId={data?.["@key"]}
-            key={data?.["@key"]}
+            layoutId={data?.['@key']}
+            key={data?.['@key']}
             className={styles.carCard}
           >
             <Image
@@ -78,9 +76,7 @@ function ManageTeam() {
               <h2 className={styles.carName}>{data?.name}</h2>
               <p className={styles.carId}>{`Nome do Time: ${data?.name}`}</p>
               <p className={styles.carId}>{`Id do Time: ${data?.id}`}</p>
-              <p
-                className={styles.carPilot}
-              >{`Chave do time: ${data?.["@key"]}`}</p>
+              <p className={styles.carPilot}>{`Chave do time: ${data?.['@key']}`}</p>
             </div>
           </motion.div>
         </motion.section>
@@ -88,7 +84,7 @@ function ManageTeam() {
 
       <LinkGoTo title="Voltar para seus times" href="/teams" />
     </main>
-  );
+  )
 }
 
-export { ManageTeam };
+export { ManageTeam }

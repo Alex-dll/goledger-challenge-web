@@ -19,7 +19,7 @@ function Loading() {
       </svg>
       <span className="sr-only">Loading...</span>
     </div>
-  );
+  )
 }
 
-export { Loading };
+export { Loading }

@@ -1,1 +1,1 @@
-type AssetType = "car" | "driver" | "team" | "event";
+type AssetType = 'car' | 'driver' | 'team' | 'event'

@@ -1,58 +1,58 @@
 /* eslint-disable no-console */
-import { useState } from "react";
-import { toast } from "react-toastify";
-import { motion } from "framer-motion";
-import { useRouter } from "next/router";
+import { useState } from 'react'
+import { toast } from 'react-toastify'
+import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
 
-import { useGetDriverById, useGetTeams } from "../../../hooks/useApi";
-import { query as queryClient } from "../../../services";
+import { useGetDriverById, useGetTeams } from '../../../hooks/useApi'
+import { query as queryClient } from '../../../services'
 import {
   UpdateDriver as UpdateDriverProps,
   updateDriverAsset,
-} from "../../../services/http";
-import { Heading, LinkGoTo } from "../../atoms";
+} from '../../../services/http'
+import { Heading, LinkGoTo } from '../../atoms'
 
-import styles from "./styles.module.css";
+import styles from './styles.module.css'
 
 function UpdateDriver() {
-  const router = useRouter();
+  const router = useRouter()
 
-  const { id } = router.query;
+  const { id } = router.query
 
-  const driver = useGetDriverById(Number(id));
+  const driver = useGetDriverById(Number(id))
 
-  const [name, setName] = useState(String(driver.data?.name));
-  const [team, setTeam] = useState(driver?.data?.team["@key"]);
+  const [name, setName] = useState(String(driver.data?.name))
+  const [team, setTeam] = useState(driver?.data?.team['@key'])
 
-  const { data } = useGetTeams();
+  const { data } = useGetTeams()
 
-  const findesTeam = data?.result.find((teams) => teams["@key"] === team);
+  const findesTeam = data?.result.find((teams) => teams['@key'] === team)
 
   const payload: UpdateDriverProps = {
     update: {
-      "@assetType": "driver",
+      '@assetType': 'driver',
       id: Number(id),
       name,
       team: {
-        "@assetType": "team",
-        "@key": String(findesTeam?.["@key"]),
+        '@assetType': 'team',
+        '@key': String(findesTeam?.['@key']),
       },
     },
-  };
+  }
 
   async function handleUpdateCar() {
     if (!name || !team) {
-      toast.error("Preencha todos os campos!");
+      toast.error('Preencha todos os campos!')
     } else {
       try {
-        await updateDriverAsset({ payload });
-        await queryClient.invalidateQueries(["drivers"]);
-        router.push("/drivers");
-        toast.success("Piloto atualizado com sucesso! 🙂");
+        await updateDriverAsset({ payload })
+        await queryClient.invalidateQueries(['drivers'])
+        router.push('/drivers')
+        toast.success('Piloto atualizado com sucesso! 🙂')
       } catch (error) {
-        toast.error("Não foi atualizar o piloto! 😢");
+        toast.error('Não foi atualizar o piloto! 😢')
 
-        console.log(error);
+        console.log(error)
       }
     }
   }
@@ -96,7 +96,7 @@ function UpdateDriver() {
             >
               <option>Selecione um time</option>
               {data?.result.map((teams) => (
-                <option key={teams.id} value={teams["@key"]}>
+                <option key={teams.id} value={teams['@key']}>
                   {teams.name}
                 </option>
               ))}
@@ -114,7 +114,7 @@ function UpdateDriver() {
 
       <LinkGoTo title="Voltar para seus pilotos" href="/drivers" />
     </main>
-  );
+  )
 }
 
-export { UpdateDriver };
+export { UpdateDriver }

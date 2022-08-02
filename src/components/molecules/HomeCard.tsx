@@ -1,12 +1,12 @@
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 type Props = {
-  layoutId: string;
-  href: string;
-  imgSrc: string;
-  title: string;
-};
+  layoutId: string
+  href: string
+  imgSrc: string
+  title: string
+}
 
 function HomeCard({ layoutId, href, imgSrc, title }: Props) {
   return (
@@ -20,7 +20,7 @@ function HomeCard({ layoutId, href, imgSrc, title }: Props) {
         <strong className="pt-2">{title}</strong>
       </div>
     </Link>
-  );
+  )
 }
 
-export { HomeCard };
+export { HomeCard }
