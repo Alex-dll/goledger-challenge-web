@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 import { useGetTeamById } from '../../../hooks/useApi'
 import { query as queryClient } from '../../../services'
-import { DeleteDriverById } from '../../../services/http'
+import { DeleteTeamById } from '../../../services/http'
 import { Heading, LinkGoTo, Loading } from '../../atoms'
 
 import styles from './styles.module.css'
@@ -26,7 +26,7 @@ function ManageTeam() {
 
     if (confirmation) {
       try {
-        await DeleteDriverById(teamId)
+        await DeleteTeamById(teamId)
         await queryClient.invalidateQueries(['teams'])
         router.push('/teams')
         toast.success('Time deletado com sucesso! 🙂')

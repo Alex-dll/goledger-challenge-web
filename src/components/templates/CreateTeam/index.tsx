@@ -4,51 +4,41 @@ import { toast } from 'react-toastify'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 
-import { useGetTeams } from '../../../hooks/useApi'
 import { query as queryClient } from '../../../services'
 import {
-  CreateDriver as CreateDriverProps,
-  createDriver,
+  createTeamAsset,
+  CreateTeams as CreateTeamsProps,
 } from '../../../services/http'
 import { Heading, LinkGoTo } from '../../atoms'
 
 import styles from './styles.module.css'
 
 function CreateTeam() {
-  const [name, setName] = useState('')
-  const [team, setTeam] = useState('')
-
-  const { data } = useGetTeams()
-
-  const findesTeam = data?.result.find((teams) => teams['@key'] === team)
-
   const router = useRouter()
 
-  const payload: CreateDriverProps = {
+  const [name, setName] = useState('')
+
+  const payload: CreateTeamsProps = {
     asset: [
       {
-        '@assetType': 'driver',
+        '@assetType': 'team',
         id: Number(new Date().getTime()),
         name,
-        team: {
-          '@assetType': 'team',
-          '@key': String(findesTeam?.['@key']),
-        },
       },
     ],
   }
 
-  async function handleCreateCar() {
-    if (!name || !team) {
+  async function handleUpdateTeam() {
+    if (!name) {
       toast.error('Preencha todos os campos!')
     } else {
       try {
-        await createDriver({ payload })
-        await queryClient.invalidateQueries(['drivers'])
-        router.push('/drivers')
-        toast.success('Piloto cadastrado com sucesso! 🙂')
+        await createTeamAsset({ payload })
+        await queryClient.invalidateQueries(['teams'])
+        router.push('/teams')
+        toast.success('Time atualizado com sucesso! 🙂')
       } catch (error) {
-        toast.error('Não foi possível cadastrar o piloto! 😢')
+        toast.error('Não foi atualizar o time! 😢')
 
         console.log(error)
       }
@@ -57,11 +47,11 @@ function CreateTeam() {
 
   return (
     <main className={styles.container}>
-      <Heading title="Cadastre um novo piloto" />
+      <Heading title="Crie o seu time" />
 
       <motion.div
-        layoutId="car-img"
-        className="w-full h-64 mb-10 bg-center bg-[url('/driversPage/driver.jpg')]"
+        layoutId="driver-img"
+        className="w-full h-64 mb-10 bg-center bg-[url('/teamPage/team.jpg')]"
       />
 
       <motion.section
@@ -76,7 +66,7 @@ function CreateTeam() {
               htmlFor="large-input"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Nome do Piloto
+              Nome do Time
             </label>
             <input
               type="text"
@@ -84,33 +74,18 @@ function CreateTeam() {
               onChange={(e) => setName(e.target.value)}
               className={styles.input}
             />
-            <label className="block mb-2 text-sm font-medium text-gray-900">
-              Time do Piloto
-            </label>
-            <select
-              value={team}
-              onChange={(e) => setTeam(e.target.value)}
-              className={styles.input}
-            >
-              <option>Selecione um time</option>
-              {data?.result.map((teams) => (
-                <option key={teams.id} value={teams['@key']}>
-                  {teams.name}
-                </option>
-              ))}
-            </select>
           </div>
         </form>
         <button
           type="button"
           className=" px-4 py-2 font-bold text-white bg-blue-500 rounded-full  hover:bg-blue-700"
-          onClick={handleCreateCar}
+          onClick={handleUpdateTeam}
         >
-          Cadastrar Piloto
+          Cadastrar
         </button>
       </motion.section>
 
-      <LinkGoTo title="Voltar para os pilotos" href="/drivers" />
+      <LinkGoTo title="Voltar para seus times" href="/teams" />
     </main>
   )
 }

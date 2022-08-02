@@ -21,7 +21,6 @@ export interface CreateTeams {
       '@assetType': string
       id: number
       name: string
-      key: string
     },
   ]
 }
@@ -43,7 +42,7 @@ type UpdateTeamProps = {
   payload: UpdateTeam
 }
 
-export function createTeam({
+export function createTeamAsset({
   payload,
 }: CreateCreateProps): Promise<GetByAssetTypeProps> {
   return http
