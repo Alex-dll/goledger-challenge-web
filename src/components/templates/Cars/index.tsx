@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { useGetCars } from '../../../hooks/useApi'
 import { Heading, LinkGoTo, Loading } from '../../atoms'
+import { ItemCard } from '../../organisms'
 
 import styles from './styles.module.css'
 
@@ -16,7 +16,7 @@ function Cars() {
 
       <motion.div
         layoutId="car-img"
-        className="w-full h-64 mb-10 bg-center  bg-[url('/carPage/car.jpg')]"
+        className="w-full h-64 mb-10 bg-center bg-[url('/carPage/car.jpg')]"
       />
 
       <div className="flex justify-center w-full pb-12">
@@ -30,27 +30,15 @@ function Cars() {
       ) : (
         <motion.section className={styles.carList}>
           {data?.result.map((car) => (
-            <motion.div
-              layoutId={car['@key']}
+            <ItemCard
               key={car['@key']}
-              className={styles.carCard}
-            >
-              <Image
-                src="/carPage/iconCar.png"
-                alt="Icone de um carro vermelho"
-                className="rounded-full"
-                width={64}
-                height={64}
-              />
-              <div className={styles.wrapper}>
-                <h2 className={styles.carName}>{car.model}</h2>
-                <p className={styles.carId}>{`Id do Carro: ${car.id}`}</p>
-                <p className={styles.carPilot}>{`Id do piloto: ${car.driver['@key']}`}</p>
-              </div>
-              <Link href="/cars/[id]" as={`/cars/${car.id}`}>
-                <a className={styles.carLink}>Ver carro</a>
-              </Link>
-            </motion.div>
+              type={'cars'}
+              layoutId={car['@key']}
+              name={car.model}
+              id={car.id}
+              subtitle={car['@key']}
+              visible
+            />
           ))}
         </motion.section>
       )}
