@@ -1,0 +1,11 @@
+.header {
+  @apply flex justify-center py-2 md:justify-between md:py-4 items-center;
+}
+
+.nav-bar {
+  @apply hidden md:block space-x-8;
+}
+
+.anchor {
+  @apply tracking-wide hover:text-blue-300;
+}

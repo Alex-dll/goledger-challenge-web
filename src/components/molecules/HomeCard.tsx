@@ -10,7 +10,7 @@ type Props = {
 
 function HomeCard({ layoutId, href, imgSrc, title }: Props) {
   return (
-    <Link href={href}>
+    <Link href={href} passHref>
       <div className="relative z-10 flex flex-col items-center justify-center cursor-pointer align-center ali h-60 w-60 rounded-xl hover:brightness-75 transition">
         <motion.img
           src={imgSrc}

@@ -5,7 +5,7 @@ import { AppProps } from 'next/app'
 import Router from 'next/router'
 import NProgress from 'nprogress'
 
-import { Layout } from '../components'
+import { Layout } from '../components/atoms'
 import { query } from '../services'
 
 import 'react-toastify/dist/ReactToastify.css'
