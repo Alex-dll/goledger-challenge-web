@@ -13,10 +13,16 @@ type Props = {
 function HomeCard({ layoutId, href, imgSrc, title }: Props) {
   return (
     <Link href={href} passHref>
-      <div className={styles.wrapper}>
-        <motion.img src={imgSrc} className={styles.image} layoutId={layoutId} />
-        <strong className="pt-2">{title}</strong>
-      </div>
+      <a>
+        <div className={styles.wrapper}>
+          <motion.img
+            src={imgSrc}
+            className={styles.image}
+            layoutId={layoutId}
+          />
+          <strong className="pt-2">{title}</strong>
+        </div>
+      </a>
     </Link>
   )
 }
