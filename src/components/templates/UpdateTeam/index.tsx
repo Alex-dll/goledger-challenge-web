@@ -4,11 +4,11 @@ import { toast } from 'react-toastify'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 
-import { useGetDriverById, useGetTeams } from '../../../hooks/useApi'
+import { useGetTeamById } from '../../../hooks/useApi'
 import { query as queryClient } from '../../../services'
 import {
-  UpdateDriver as UpdateDriverProps,
-  updateDriverAsset,
+  UpdateTeam as UpdateTeamProps,
+  updateTeamAsset,
 } from '../../../services/http'
 import { Heading, LinkGoTo } from '../../atoms'
 
@@ -19,38 +19,32 @@ function UpdateTeam() {
 
   const { id } = router.query
 
-  const driver = useGetDriverById(Number(id))
+  const { data } = useGetTeamById(Number(id))
 
-  const [name, setName] = useState(String(driver.data?.name))
-  const [team, setTeam] = useState(driver?.data?.team['@key'])
+  console.log(data)
 
-  const { data } = useGetTeams()
+  const [name, setName] = useState(String(data?.name))
 
-  const findesTeam = data?.result.find((teams) => teams['@key'] === team)
-
-  const payload: UpdateDriverProps = {
+  const payload: UpdateTeamProps = {
     update: {
-      '@assetType': 'driver',
+      '@assetType': 'team',
       id: Number(id),
       name,
-      team: {
-        '@assetType': 'team',
-        '@key': String(findesTeam?.['@key']),
-      },
+      key: `${data?.['@key']}`,
     },
   }
 
-  async function handleUpdateCar() {
-    if (!name || !team) {
+  async function handleUpdateTeam() {
+    if (!name) {
       toast.error('Preencha todos os campos!')
     } else {
       try {
-        await updateDriverAsset({ payload })
-        await queryClient.invalidateQueries(['drivers'])
-        router.push('/drivers')
-        toast.success('Piloto atualizado com sucesso! 🙂')
+        await updateTeamAsset({ payload })
+        await queryClient.invalidateQueries(['teams'])
+        router.push('/teams')
+        toast.success('Time atualizado com sucesso! 🙂')
       } catch (error) {
-        toast.error('Não foi atualizar o piloto! 😢')
+        toast.error('Não foi atualizar o time! 😢')
 
         console.log(error)
       }
@@ -59,11 +53,11 @@ function UpdateTeam() {
 
   return (
     <main className={styles.container}>
-      <Heading title="Atualize o seu piloto" />
+      <Heading title="Atualize o seu time" />
 
       <motion.div
         layoutId="driver-img"
-        className="w-full h-64 mb-10 bg-center bg-[url('/driversPage/driver.jpg')]"
+        className="w-full h-64 mb-10 bg-center bg-[url('/teamPage/team.jpg')]"
       />
 
       <motion.section
@@ -78,7 +72,7 @@ function UpdateTeam() {
               htmlFor="large-input"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Nome do Piloto
+              Nome do Time
             </label>
             <input
               type="text"
@@ -86,33 +80,18 @@ function UpdateTeam() {
               onChange={(e) => setName(e.target.value)}
               className={styles.input}
             />
-            <label className="block mb-2 text-sm font-medium text-gray-900">
-              Time do piloto
-            </label>
-            <select
-              value={team}
-              onChange={(e) => setTeam(e.target.value)}
-              className={styles.input}
-            >
-              <option>Selecione um time</option>
-              {data?.result.map((teams) => (
-                <option key={teams.id} value={teams['@key']}>
-                  {teams.name}
-                </option>
-              ))}
-            </select>
           </div>
         </form>
         <button
           type="button"
           className=" px-4 py-2 font-bold text-white bg-blue-500 rounded-full  hover:bg-blue-700"
-          onClick={handleUpdateCar}
+          onClick={handleUpdateTeam}
         >
-          Atualizar Piloto
+          Atualizar Time
         </button>
       </motion.section>
 
-      <LinkGoTo title="Voltar para seus pilotos" href="/drivers" />
+      <LinkGoTo title="Voltar para seus times" href="/teams" />
     </main>
   )
 }

@@ -21,10 +21,7 @@ export interface CreateTeams {
       '@assetType': string
       id: number
       name: string
-      team: {
-        '@assetType': string
-        '@key': string
-      }
+      key: string
     },
   ]
 }
@@ -34,10 +31,7 @@ export interface UpdateTeam {
     '@assetType': string
     id: number
     name: string
-    team: {
-      '@assetType': string
-      '@key': string
-    }
+    key: string
   }
 }
 
