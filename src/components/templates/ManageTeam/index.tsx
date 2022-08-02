@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { useGetDriverById } from '../../../hooks/useApi';
+import { useGetTeamById } from '../../../hooks/useApi';
 import { query as queryClient } from '../../../services';
 import { DeleteDriverById } from '../../../services/http';
 import { Heading, LinkGoTo, Loading } from '../../atoms';
@@ -16,22 +16,22 @@ function ManageTeam() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { isLoading, data } = useGetDriverById(Number(id));
+  const { isLoading, data } = useGetTeamById(Number(id));
 
-  async function DeleteDriver(driverId: number) {
+  async function DeleteTeam(teamId: number) {
     // eslint-disable-next-line no-alert
     const confirmation = confirm(
-      'Você tem certeza que deseja excluir este piloto?',
+      'Você tem certeza que deseja excluir este time?',
     );
 
     if (confirmation) {
       try {
-        await DeleteDriverById(driverId);
-        await queryClient.invalidateQueries(['drivers']);
-        router.push('/drivers');
-        toast.success('Piloto deletado com sucesso! 🙂');
+        await DeleteDriverById(teamId);
+        await queryClient.invalidateQueries(['teams']);
+        router.push('/teams');
+        toast.success('Time deletado com sucesso! 🙂');
       } catch (error) {
-        toast.error('Não foi possível deletar o piloto! 😢');
+        toast.error('Não foi possível deletar o time! 😢');
 
         console.log(error);
       }
@@ -42,11 +42,11 @@ function ManageTeam() {
 
   return (
     <main className={styles.container}>
-      <Heading title="Gerencie o seu piloto" />
+      <Heading title="Gerencie o seu time" />
 
       <motion.div
         layoutId="driver-img"
-        className="w-full h-64 mb-10 bg-center bg-[url('/driversPage/driver.jpg')]"
+        className="w-full h-64 mb-10 bg-center bg-[url('/teamPage/team.jpg')]"
       />
 
       {isLoading ? (
@@ -54,14 +54,11 @@ function ManageTeam() {
       ) : (
         <motion.section className={styles.carList}>
           <div className={styles.linksContainer}>
-            <Link href="/drivers/edit/[id]" as={`/drivers/edit/${data?.id}`}>
-              <a className={styles.carLink}>Editar o Piloto</a>
+            <Link href="/teams/edit/[id]" as={`/teams/edit/${data?.id}`}>
+              <a className={styles.carLink}>Editar o time</a>
             </Link>
-            <button
-              type="button"
-              onClick={() => DeleteDriver(Number(data?.id))}
-            >
-              <span className={styles.carLinkRemove}>Remover Piloto</span>
+            <button type="button" onClick={() => DeleteTeam(Number(data?.id))}>
+              <span className={styles.carLinkRemove}>Remover Time</span>
             </button>
           </div>
 
@@ -71,27 +68,25 @@ function ManageTeam() {
             className={styles.carCard}
           >
             <Image
-              src="/driversPage/iconDriver.png"
-              alt="Icone de um carro vermelho"
+              src="/teamPage/iconTeam.png"
+              alt="Icone de um time"
               className="rounded-full"
               width={64}
               height={64}
             />
             <div className={styles.wrapper}>
               <h2 className={styles.carName}>{data?.name}</h2>
-              <p
-                className={styles.carId}
-              >{`Id do Time: ${data?.team['@key']}`}</p>
-              <p className={styles.carId}>{`Id do Piloto: ${data?.id}`}</p>
+              <p className={styles.carId}>{`Nome do Time: ${data?.name}`}</p>
+              <p className={styles.carId}>{`Id do Time: ${data?.id}`}</p>
               <p
                 className={styles.carPilot}
-              >{`Chave do piloto: ${data?.['@key']}`}</p>
+              >{`Chave do time: ${data?.['@key']}`}</p>
             </div>
           </motion.div>
         </motion.section>
       )}
 
-      <LinkGoTo title="Voltar para seus pilotos" href="/drivers" />
+      <LinkGoTo title="Voltar para seus times" href="/teams" />
     </main>
   );
 }
