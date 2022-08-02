@@ -49,7 +49,9 @@ type UpdateTeamProps = {
   payload: UpdateTeam
 }
 
-export function createTeam({ payload }: CreateCreateProps): Promise<GetByAssetTypeProps> {
+export function createTeam({
+  payload,
+}: CreateCreateProps): Promise<GetByAssetTypeProps> {
   return http
     .post<GetByAssetTypeProps>(`invoke/createAsset`, payload)
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data)

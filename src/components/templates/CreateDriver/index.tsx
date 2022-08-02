@@ -6,7 +6,10 @@ import { useRouter } from 'next/router'
 
 import { useGetTeams } from '../../../hooks/useApi'
 import { query as queryClient } from '../../../services'
-import { CreateDriver as CreateDriverProps, createDriver } from '../../../services/http'
+import {
+  CreateDriver as CreateDriverProps,
+  createDriver,
+} from '../../../services/http'
 import { Heading, LinkGoTo } from '../../atoms'
 
 import styles from './styles.module.css'
