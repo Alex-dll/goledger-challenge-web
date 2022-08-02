@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import { toast } from 'react-toastify'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -11,6 +10,7 @@ import { DeleteDriverById } from '../../../services/http'
 import { Heading, LinkGoTo, Loading } from '../../atoms'
 
 import styles from './styles.module.css'
+import { ItemCard } from '../../organisms'
 
 function ManageTeam() {
   const router = useRouter()
@@ -20,7 +20,9 @@ function ManageTeam() {
 
   async function DeleteTeam(teamId: number) {
     // eslint-disable-next-line no-alert
-    const confirmation = confirm('Você tem certeza que deseja excluir este time?')
+    const confirmation = confirm(
+      'Você tem certeza que deseja excluir este time?',
+    )
 
     if (confirmation) {
       try {
@@ -60,25 +62,14 @@ function ManageTeam() {
             </button>
           </div>
 
-          <motion.div
-            layoutId={data?.['@key']}
+          <ItemCard
             key={data?.['@key']}
-            className={styles.carCard}
-          >
-            <Image
-              src="/teamPage/iconTeam.png"
-              alt="Icone de um time"
-              className="rounded-full"
-              width={64}
-              height={64}
-            />
-            <div className={styles.wrapper}>
-              <h2 className={styles.carName}>{data?.name}</h2>
-              <p className={styles.carId}>{`Nome do Time: ${data?.name}`}</p>
-              <p className={styles.carId}>{`Id do Time: ${data?.id}`}</p>
-              <p className={styles.carPilot}>{`Chave do time: ${data?.['@key']}`}</p>
-            </div>
-          </motion.div>
+            type={'teams'}
+            layoutId={`${data?.['@key']}`}
+            name={`${data?.name}`}
+            id={Number(data?.id)}
+            subtitle={data?.['@key']}
+          />
         </motion.section>
       )}
 

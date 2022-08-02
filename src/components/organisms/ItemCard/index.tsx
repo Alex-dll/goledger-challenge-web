@@ -6,7 +6,7 @@ import styles from './styles.module.css'
 
 type Props = {
   type: 'cars' | 'drivers' | 'teams' | 'events'
-  visible: boolean
+  visible?: boolean
   layoutId: string
   name: string
   id: number
@@ -15,8 +15,8 @@ type Props = {
 
 const imageModel = {
   cars: { src: '/carPage/iconCar.png', alt: 'Icone de um carro vermelho' },
-  drivers: { src: '/driverPage/iconPilot.png', alt: 'Icone de um piloto' },
-  teams: { src: '/teamsPage/iconTeam.png', alt: 'Icone de um time' },
+  drivers: { src: '/driverPage/iconDriver.png', alt: 'Icone de um piloto' },
+  teams: { src: '/teamPage/iconTeam.png', alt: 'Icone de um time' },
   events: { src: '/eventPage/iconEvent.png', alt: 'Icone de um evento' },
 }
 
@@ -27,7 +27,14 @@ const buttonTextModel = {
   events: 'Ver evento',
 }
 
-function ItemCard({ type, layoutId, name, subtitle, id, visible = false }: Props) {
+function ItemCard({
+  type,
+  layoutId,
+  name,
+  subtitle,
+  id,
+  visible = false,
+}: Props) {
   return (
     <motion.div layoutId={layoutId} className={styles.card}>
       <Image

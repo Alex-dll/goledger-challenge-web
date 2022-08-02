@@ -1,5 +1,6 @@
 import { ToastContainer } from 'react-toastify'
 import { QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { LayoutGroup } from 'framer-motion'
 import { AppProps } from 'next/app'
 import Router from 'next/router'
@@ -37,6 +38,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </Layout>
       </LayoutGroup>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   )
 }

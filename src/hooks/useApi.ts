@@ -16,7 +16,7 @@ export function useGetCars() {
 }
 
 export function useGetCar(id: number) {
-  return useQuery([`car${id}`], () => getCarById(id), {
+  return useQuery(['car', id], () => getCarById(id), {
     staleTime: 1000 * 60,
   })
 }
@@ -28,7 +28,7 @@ export function useGetDrivers() {
 }
 
 export function useGetDriverById(id: number) {
-  return useQuery([`driver${id}`], () => getDriverById(id), {
+  return useQuery(['driver', id], () => getDriverById(id), {
     staleTime: 1000 * 60,
   })
 }
@@ -40,7 +40,7 @@ export function useGetTeams() {
 }
 
 export function useGetTeamById(id: number) {
-  return useQuery([`team${id}`], () => getTeamById(id), {
+  return useQuery([`team`, id], () => getTeamById(id), {
     staleTime: 1000 * 60,
   })
 }

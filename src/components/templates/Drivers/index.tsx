@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { useGetDrivers } from '../../../hooks/useApi'
 import { Heading, LinkGoTo, Loading } from '../../atoms'
+import { ItemCard } from '../../organisms'
 
 import styles from './styles.module.css'
 
@@ -16,7 +16,7 @@ function Drivers() {
 
       <motion.div
         layoutId="racer-img"
-        className="w-full h-64 mb-10 bg-center  bg-[url('/driversPage/driver.jpg')]"
+        className="w-full h-64 mb-10 bg-center  bg-[url('/driverPage/driver.jpg')]"
       />
 
       <div className="flex justify-center w-full pb-12">
@@ -30,29 +30,15 @@ function Drivers() {
       ) : (
         <motion.section className={styles.carList}>
           {data?.result.map((driver) => (
-            <motion.div
-              layoutId={driver['@key']}
+            <ItemCard
               key={driver['@key']}
-              className={styles.carCard}
-            >
-              <Image
-                src="/driversPage/iconDriver.png"
-                alt="Icone de um carro vermelho"
-                className="rounded-full"
-                width={64}
-                height={64}
-              />
-              <div className={styles.wrapper}>
-                <h2 className={styles.carName}>{driver.name}</h2>
-                <p className={styles.carId}>{`Id do piloto: ${driver.id}`}</p>
-                <p
-                  className={styles.carPilot}
-                >{`Id da equipe do piloto: ${driver.team['@key']}`}</p>
-              </div>
-              <Link href="/drivers/[id]" as={`/drivers/${driver.id}`}>
-                <a className={styles.carLink}>Ver Piloto</a>
-              </Link>
-            </motion.div>
+              id={driver.id}
+              layoutId={driver['@key']}
+              name={driver.name}
+              type={'drivers'}
+              subtitle={driver['@key']}
+              visible
+            />
           ))}
         </motion.section>
       )}

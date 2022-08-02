@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { useGetTeams } from '../../../hooks/useApi'
 import { Heading, LinkGoTo, Loading } from '../../atoms'
+import { ItemCard } from '../../organisms'
 
 import styles from './styles.module.css'
 
@@ -30,26 +30,15 @@ function Teams() {
       ) : (
         <motion.section className={styles.carList}>
           {data?.result.map((teams) => (
-            <motion.div
-              layoutId={teams['@key']}
-              key={teams['@key']}
-              className={styles.carCard}
-            >
-              <Image
-                src="/teamPage/iconTeam.png"
-                alt="Icone que representa varios times"
-                className="rounded-full"
-                width={64}
-                height={64}
-              />
-              <div className={styles.wrapper}>
-                <h2 className={styles.carName}>{teams.name}</h2>
-                <p className={styles.carPilot}>{`Id do time: ${teams['@key']}`}</p>
-              </div>
-              <Link href="/teams/[id]" as={`/teams/${teams.id}`}>
-                <a className={styles.carLink}>Ver time</a>
-              </Link>
-            </motion.div>
+            <ItemCard
+              key={teams?.['@key']}
+              type={'teams'}
+              layoutId={`${teams?.['@key']}`}
+              name={`${teams?.name}`}
+              id={Number(teams?.id)}
+              subtitle={teams?.['@key']}
+              visible
+            />
           ))}
         </motion.section>
       )}

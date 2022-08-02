@@ -12,7 +12,7 @@ interface Result {
   '@key': string
   '@lastTouchBy': string
   '@lastTx': string
-  id: string
+  id: number
   name: string
   team: Team
 }
