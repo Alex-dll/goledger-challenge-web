@@ -45,7 +45,9 @@ function Cars() {
               <div className={styles.wrapper}>
                 <h2 className={styles.carName}>{car.model}</h2>
                 <p className={styles.carId}>{`Id do Carro: ${car.id}`}</p>
-                <p className={styles.carPilot}>{`Id do piloto: ${car.driver['@key']}`}</p>
+                <p
+                  className={styles.carPilot}
+                >{`Id do piloto: ${car.driver['@key']}`}</p>
               </div>
               <Link href="/cars/[id]" as={`/cars/${car.id}`}>
                 <a className={styles.carLink}>Ver carro</a>

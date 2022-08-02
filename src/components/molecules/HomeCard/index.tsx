@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
+import styles from './styles.module.scss'
+
 type Props = {
   layoutId: string
   href: string
@@ -11,12 +13,8 @@ type Props = {
 function HomeCard({ layoutId, href, imgSrc, title }: Props) {
   return (
     <Link href={href} passHref>
-      <div className="relative z-10 flex flex-col items-center justify-center cursor-pointer align-center ali h-60 w-60 rounded-xl hover:brightness-75 transition">
-        <motion.img
-          src={imgSrc}
-          className="w-full h-full rounded-xl"
-          layoutId={layoutId}
-        />
+      <div className={styles.wrapper}>
+        <motion.img src={imgSrc} className={styles.img} layoutId={layoutId} />
         <strong className="pt-2">{title}</strong>
       </div>
     </Link>
@@ -24,3 +22,4 @@ function HomeCard({ layoutId, href, imgSrc, title }: Props) {
 }
 
 export { HomeCard }
+export type { Props as HomeCardProps }
