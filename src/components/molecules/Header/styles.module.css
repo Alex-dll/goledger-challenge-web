@@ -1,5 +1,5 @@
 .header {
-  @apply flex justify-center py-2 md:justify-between md:py-4 items-center;
+  @apply flex justify-center py-2 md:justify-between md:py-4 items-center sticky top-0 z-50 bg-white;
 }
 
 .nav-bar {

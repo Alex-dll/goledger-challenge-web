@@ -9,26 +9,3 @@
   @apply flex flex-col items-center justify-center pb-8 md:flex-row md:flex-wrap gap-8
 }
 
-.carCard {
- @apply flex flex-col items-center max-w-3xl
-}
-
-.wrapper {
-  @apply flex flex-col items-center gap-2
-}
-
-.carName {
-  @apply text-2xl font-extrabold leading-none tracking-tight text-gray-900
-}
-
-.carId {
-  @apply text-sm font-semibold leading-none tracking-tight text-gray-900
-}
-
-.carPilot {
-  @apply max-w-sm text-center text-gray-700
-}
-
-.carLink {
-  @apply px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700
-}

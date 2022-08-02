@@ -13,7 +13,7 @@ type Props = {
 }
 
 function HomeCard({ layoutId, href, imgSrc, title, prefetch }: Props) {
-  const handlePrefetch = useCallback(prefetch, [])
+  const handlePrefetch = useCallback(prefetch, [prefetch])
 
   return (
     <Link href={href} passHref>
