@@ -30,7 +30,7 @@ function Header() {
           <a className="tracking-wide hover:text-blue-300">Times</a>
         </Link>
         <Link href="/events" passHref>
-          <a className="tracking-wide hover:text-blue-300">Equipes</a>
+          <a className="tracking-wide hover:text-blue-300">Eventos</a>
         </Link>
       </nav>
     </header>
