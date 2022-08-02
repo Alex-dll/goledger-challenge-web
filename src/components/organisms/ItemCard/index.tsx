@@ -27,14 +27,7 @@ const buttonTextModel = {
   events: 'Ver evento',
 }
 
-function ItemCard({
-  type,
-  layoutId,
-  name,
-  subtitle,
-  id,
-  visible = false,
-}: Props) {
+function ItemCard({ type, layoutId, name, subtitle, id, visible = false }: Props) {
   return (
     <motion.div layoutId={layoutId} className={styles.card}>
       <Image
