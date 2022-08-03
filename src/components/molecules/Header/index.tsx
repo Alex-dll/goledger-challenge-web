@@ -24,13 +24,13 @@ function Header() {
           <a className={styles.anchor}>Carros</a>
         </Link>
         <Link href="/drivers" passHref>
-          <a className="tracking-wide hover:text-blue-300">Pilotos</a>
+          <a className={styles.anchor}>Pilotos</a>
         </Link>
         <Link href="/teams" passHref>
-          <a className="tracking-wide hover:text-blue-300">Times</a>
+          <a className={styles.anchor}>Times</a>
         </Link>
         <Link href="/events" passHref>
-          <a className="tracking-wide hover:text-blue-300">Eventos</a>
+          <a className={styles.anchor}>Eventos</a>
         </Link>
       </nav>
     </header>
