@@ -61,7 +61,7 @@ function CreateDriver() {
 
       <motion.div
         layoutId="car-img"
-        className="w-full h-64 mb-10 bg-center bg-[url('/driversPage/driver.jpg')]"
+        className="w-full h-64 mb-10 bg-center bg-[url('/driverPage/driver.jpg')]"
       />
 
       <motion.section

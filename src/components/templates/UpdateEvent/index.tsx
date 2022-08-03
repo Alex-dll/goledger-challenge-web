@@ -4,11 +4,11 @@ import { toast } from 'react-toastify'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 
-import { useGetTeamById } from '../../../hooks/useApi'
+import { useGetCar, useGetDrivers } from '../../../hooks/useApi'
 import { query as queryClient } from '../../../services'
 import {
-  UpdateTeam as UpdateTeamProps,
-  updateTeamAsset,
+  UpdateCar as UpdateCarProps,
+  updateCarAsset,
 } from '../../../services/http'
 import { Heading, LinkGoTo } from '../../atoms'
 
@@ -19,32 +19,40 @@ function UpdateEvent() {
 
   const { id } = router.query
 
-  const { data } = useGetTeamById(Number(id))
+  const car = useGetCar(Number(id))
+  const { data } = useGetDrivers()
 
-  console.log(data)
+  const [model, setModel] = useState(String(car.data?.model))
+  const [pilot, setPilot] = useState(car?.data?.driver['@key'])
 
-  const [name, setName] = useState(String(data?.name))
+  const findesDriver = data?.result.find((driver) => driver['@key'] === pilot)
 
-  const payload: UpdateTeamProps = {
+  console.log(findesDriver)
+
+  const payload: UpdateCarProps = {
     update: {
-      '@assetType': 'team',
-      id: Number(id),
-      name,
-      key: `${data?.['@key']}`,
+      '@assetType': 'car',
+      id: Number(car.data?.id),
+      driver: {
+        id: Number(findesDriver?.id),
+        '@assetType': 'driver',
+        '@key': String(findesDriver?.['@key']),
+      },
+      model,
     },
   }
 
-  async function handleUpdateTeam() {
-    if (!name) {
+  async function handleUpdateCar() {
+    if (!model || !pilot) {
       toast.error('Preencha todos os campos!')
     } else {
       try {
-        await updateTeamAsset({ payload })
-        await queryClient.invalidateQueries(['teams'])
-        router.push('/teams')
-        toast.success('Time atualizado com sucesso! 🙂')
+        await updateCarAsset({ payload })
+        await queryClient.invalidateQueries(['cars'])
+        router.push('/cars')
+        toast.success('Carro atualizado com sucesso! 🙂')
       } catch (error) {
-        toast.error('Não foi atualizar o time! 😢')
+        toast.error('Não foi atualizar o carro! 😢')
 
         console.log(error)
       }
@@ -53,11 +61,11 @@ function UpdateEvent() {
 
   return (
     <main className={styles.container}>
-      <Heading title="Atualize o seu time" />
+      <Heading title="Atualize o seu carro" />
 
       <motion.div
-        layoutId="driver-img"
-        className="w-full h-64 mb-10 bg-center bg-[url('/teamPage/team.jpg')]"
+        layoutId="car-img"
+        className="w-full h-64 mb-10 bg-center bg-[url('/carPage/car.jpg')]"
       />
 
       <motion.section
@@ -72,26 +80,41 @@ function UpdateEvent() {
               htmlFor="large-input"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Nome do Time
+              Modelo do Carro
             </label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={model}
+              onChange={(e) => setModel(e.target.value)}
               className={styles.input}
             />
+            <label className="block mb-2 text-sm font-medium text-gray-900">
+              Piloto do carro
+            </label>
+            <select
+              value={pilot}
+              onChange={(e) => setPilot(e.target.value)}
+              className={styles.input}
+            >
+              <option>Selecione um piloto</option>
+              {data?.result.map((driver) => (
+                <option key={driver.id} value={driver['@key']}>
+                  {driver.name}
+                </option>
+              ))}
+            </select>
           </div>
         </form>
         <button
           type="button"
           className=" px-4 py-2 font-bold text-white bg-blue-500 rounded-full  hover:bg-blue-700"
-          onClick={handleUpdateTeam}
+          onClick={handleUpdateCar}
         >
-          Atualizar Time
+          Atualizar Carro
         </button>
       </motion.section>
 
-      <LinkGoTo title="Voltar para seus times" href="/teams" />
+      <LinkGoTo title="Voltar para seus carros" href="/cars" />
     </main>
   )
 }

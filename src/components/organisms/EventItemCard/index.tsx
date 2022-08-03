@@ -10,6 +10,7 @@ type Props = {
   name: string
   data: Date
   winner: string
+  prize: string
   eventKey: string
   visible?: boolean
 }
@@ -19,6 +20,7 @@ function EventItemCard({
   name,
   data,
   winner,
+  prize,
   eventKey,
   visible = false,
 }: Props) {
@@ -34,6 +36,7 @@ function EventItemCard({
       <div className={styles.wrapper}>
         <h2 className={styles.name}>{`Evento: ${name}`}</h2>
         <p className={styles.date}>{`Data do torneio: ${formatDate(data)}`}</p>
+        <p className={styles.prize}>{`Prémio: $${prize}`}</p>
         <p className={styles.winner}>{`Ganhador do torneio: ${winner}`}</p>
         <p className={styles.key}>{`Key: ${eventKey}`}</p>
       </div>

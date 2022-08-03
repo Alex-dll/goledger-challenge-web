@@ -5,7 +5,7 @@ import Image from 'next/image'
 import styles from './styles.module.css'
 
 type Props = {
-  type: 'cars' | 'drivers' | 'teams' | 'events'
+  type: 'cars' | 'drivers' | 'teams'
   visible?: boolean
   layoutId: string
   name: string

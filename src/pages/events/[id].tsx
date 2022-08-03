@@ -1,3 +1,3 @@
-import { ManageTeam } from '../../components'
+import { ManageEvent } from '../../components'
 
-export default ManageTeam
+export default ManageEvent

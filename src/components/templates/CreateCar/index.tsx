@@ -16,7 +16,9 @@ function CreateCar() {
 
   const { data } = useGetDrivers()
 
-  const findesDriver = data?.result.find((driver) => driver.id > pilot)
+  const findesDriver = data?.result.find((driver) => driver['@key'] === pilot)
+
+  console.log(findesDriver)
 
   const router = useRouter()
 
@@ -89,7 +91,7 @@ function CreateCar() {
             >
               <option>Selecione um piloto</option>
               {data?.result.map((driver) => (
-                <option key={driver.id} value={driver.id}>
+                <option key={driver.id} value={driver['@key']}>
                   {driver.name}
                 </option>
               ))}

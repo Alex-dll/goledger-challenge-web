@@ -35,6 +35,7 @@ function Events() {
               layoutId={`${events?.['@key']}`}
               name={`${events?.name}`}
               data={events?.date}
+              prize={`${events?.prize}`}
               winner={events?.winner['@key']}
               eventKey={`${events?.['@key']}`}
               visible
