@@ -4,21 +4,21 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { useGetTeamById } from '../../../hooks/useApi'
+import { useGetEventDetails } from '../../../hooks/useApi'
 import { query as queryClient } from '../../../services'
-import { DeleteTeamById } from '../../../services/http'
+import { DeleteEventById } from '../../../services/http'
 import { Heading, LinkGoTo, Loading } from '../../atoms'
 
 import styles from './styles.module.css'
-import { ItemCard } from '../../organisms'
+import { EventItemCard } from '../../organisms'
 
 function ManageTeam() {
   const router = useRouter()
   const { id } = router.query
 
-  const { isLoading, data } = useGetTeamById(Number(id))
+  const { isLoading, data } = useGetEventDetails(`${id}`)
 
-  async function DeleteTeam(teamId: number) {
+  async function DeleteEvent(teamKey: string) {
     // eslint-disable-next-line no-alert
     const confirmation = confirm(
       'Você tem certeza que deseja excluir este time?',
@@ -26,7 +26,7 @@ function ManageTeam() {
 
     if (confirmation) {
       try {
-        await DeleteTeamById(teamId)
+        await DeleteEventById(teamKey)
         await queryClient.invalidateQueries(['teams'])
         router.push('/teams')
         toast.success('Time deletado com sucesso! 🙂')
@@ -46,7 +46,7 @@ function ManageTeam() {
 
       <motion.div
         layoutId="driver-img"
-        className="w-full h-64 mb-10 bg-center bg-[url('/teamPage/team.jpg')]"
+        className="w-full h-64 mb-10 bg-center bg-[url('/eventPage/event.jpg')]"
       />
 
       {isLoading ? (
@@ -54,26 +54,35 @@ function ManageTeam() {
       ) : (
         <motion.section className={styles.carList}>
           <div className={styles.linksContainer}>
-            <Link href="/teams/edit/[id]" as={`/teams/edit/${data?.id}`}>
-              <a className={styles.carLink}>Editar o time</a>
+            <Link
+              href={{
+                pathname: `/events/edit/[id]`,
+                query: { id: data?.['@key'] },
+              }}
+              passHref
+            >
+              <a className={styles.carLink}>Editar o Evento</a>
             </Link>
-            <button type="button" onClick={() => DeleteTeam(Number(data?.id))}>
-              <span className={styles.carLinkRemove}>Remover Time</span>
+            <button
+              type="button"
+              onClick={() => DeleteEvent(`${data?.['@key']}`)}
+            >
+              <span className={styles.carLinkRemove}>Remover Evento</span>
             </button>
           </div>
 
-          <ItemCard
+          <EventItemCard
             key={data?.['@key']}
-            type={'teams'}
             layoutId={`${data?.['@key']}`}
             name={`${data?.name}`}
-            id={Number(data?.id)}
-            subtitle={data?.['@key']}
+            data={data?.date === undefined ? new Date() : data?.date}
+            winner={`${data?.winner['@key']}`}
+            eventKey={`${data?.['@key']}`}
           />
         </motion.section>
       )}
 
-      <LinkGoTo title="Voltar para seus times" href="/teams" />
+      <LinkGoTo title="Voltar para seus eventos" href="/events" />
     </main>
   )
 }

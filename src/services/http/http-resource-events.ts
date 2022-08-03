@@ -77,23 +77,22 @@ export function getEvents(): Promise<GetByAssetTypeProps> {
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data)
 }
 
-export function getEventDetails(name: string, date: Date): Promise<Result> {
+export function getEventDetails(key: string): Promise<Result> {
   return http
     .post<Result>(`query/readAsset`, {
       key: {
         '@assetType': 'event',
-        name,
-        date,
+        '@key': key,
       },
     })
     .then(({ data }: AxiosResponse<Result>) => data)
 }
 
-export function DeleteEventById(id: number): Promise<void> {
+export function DeleteEventById(key: string): Promise<void> {
   const requestBody = {
     key: {
       '@assetType': 'event',
-      id,
+      '@key': key,
     },
   }
 

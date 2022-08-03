@@ -21,14 +21,14 @@ function Events() {
 
       <div className="flex justify-center w-full pb-12">
         <Link href="/events/create" passHref>
-          <a className={styles.carCreate}>Cadastre um evento</a>
+          <a className={styles.create}>Cadastre um evento</a>
         </Link>
       </div>
 
       {isLoading ? (
         <Loading />
       ) : (
-        <motion.section className={styles.carList}>
+        <motion.section className={styles.list}>
           {data?.result.map((events) => (
             <EventItemCard
               key={events?.['@key']}
@@ -37,6 +37,7 @@ function Events() {
               data={events?.date}
               winner={events?.winner['@key']}
               eventKey={`${events?.['@key']}`}
+              visible
             />
           ))}
         </motion.section>

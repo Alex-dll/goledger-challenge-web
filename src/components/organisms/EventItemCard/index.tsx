@@ -11,9 +11,17 @@ type Props = {
   data: Date
   winner: string
   eventKey: string
+  visible?: boolean
 }
 
-function EventItemCard({ layoutId, name, data, winner, eventKey }: Props) {
+function EventItemCard({
+  layoutId,
+  name,
+  data,
+  winner,
+  eventKey,
+  visible = false,
+}: Props) {
   return (
     <motion.div layoutId={layoutId} className={styles.card}>
       <Image
@@ -29,14 +37,16 @@ function EventItemCard({ layoutId, name, data, winner, eventKey }: Props) {
         <p className={styles.winner}>{`Ganhador do torneio: ${winner}`}</p>
         <p className={styles.key}>{`Key: ${eventKey}`}</p>
       </div>
-      <Link
-        href={{
-          pathname: `/events/[id]`,
-          query: { id: eventKey },
-        }}
-      >
-        <a className={styles.link}>{'Ver evento'}</a>
-      </Link>
+      {visible && (
+        <Link
+          href={{
+            pathname: `/events/[id]`,
+            query: { id: eventKey },
+          }}
+        >
+          <a className={styles.link}>{'Ver evento'}</a>
+        </Link>
+      )}
     </motion.div>
   )
 }

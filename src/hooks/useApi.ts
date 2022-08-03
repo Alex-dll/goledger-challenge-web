@@ -53,8 +53,8 @@ export function useGetEvents() {
   })
 }
 
-export function useGetEventDetails(name: string, date: Date) {
-  return useQuery([`event`, name], () => getEventDetails(name, date), {
+export function useGetEventDetails(key: string) {
+  return useQuery([`event`, key], () => getEventDetails(key), {
     staleTime: 1000 * 60,
   })
 }
