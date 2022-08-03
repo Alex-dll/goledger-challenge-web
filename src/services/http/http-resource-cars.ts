@@ -2,12 +2,12 @@ import { AxiosResponse } from 'axios'
 
 import { http } from './axiosBase'
 
-interface Driver {
+type Driver = {
   '@assetType': string
   '@key': string
 }
 
-interface CarResult {
+type CarResult = {
   '@assetType': string
   '@key': string
   '@lastTouchBy': string
@@ -17,11 +17,11 @@ interface CarResult {
   model: string
 }
 
-interface GetByAssetTypeProps {
+type GetByAssetTypeProps = {
   result: CarResult[]
 }
 
-export interface CreateCar {
+export type CreateCar = {
   asset: [
     {
       '@assetType': string
@@ -36,7 +36,7 @@ export interface CreateCar {
   ]
 }
 
-export interface UpdateCar {
+export type UpdateCar = {
   update: {
     '@assetType': string
     id: number

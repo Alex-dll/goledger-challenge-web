@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 
 import { http } from './axiosBase'
 
-interface Result {
+type Result = {
   '@assetType': string
   '@key': string
   '@lastTouchBy': string
@@ -11,11 +11,11 @@ interface Result {
   name: string
 }
 
-interface GetByAssetTypeProps {
+type GetByAssetTypeProps = {
   result: Result[]
 }
 
-export interface CreateTeams {
+export type CreateTeams = {
   asset: [
     {
       '@assetType': string
@@ -25,7 +25,7 @@ export interface CreateTeams {
   ]
 }
 
-export interface UpdateTeam {
+export type UpdateTeam = {
   update: {
     '@assetType': string
     id: number
@@ -34,7 +34,7 @@ export interface UpdateTeam {
   }
 }
 
-type CreateCreateProps = {
+type CreateTeamProps = {
   payload: CreateTeams
 }
 
@@ -44,7 +44,7 @@ type UpdateTeamProps = {
 
 export function createTeamAsset({
   payload,
-}: CreateCreateProps): Promise<GetByAssetTypeProps> {
+}: CreateTeamProps): Promise<GetByAssetTypeProps> {
   return http
     .post<GetByAssetTypeProps>(`invoke/createAsset`, payload)
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data)

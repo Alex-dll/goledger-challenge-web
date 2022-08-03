@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 
 import { http } from './axiosBase'
 
-type Team = {
+type Winner = {
   '@assetType': string
   '@key': string
 }
@@ -12,92 +12,87 @@ type Result = {
   '@key': string
   '@lastTouchBy': string
   '@lastTx': string
-  id: number
+  date: Date
   name: string
-  team: Team
+  prize: number
+  winner: Winner
 }
 
 type GetByAssetTypeProps = {
   result: Result[]
 }
 
-export type CreateDriver = {
+export type CreateEvent = {
   asset: [
     {
       '@assetType': string
       id: number
       name: string
-      team: {
-        '@assetType': string
-        '@key': string
-      }
     },
   ]
 }
 
-export type UpdateDriver = {
+export type UpdateEvent = {
   update: {
     '@assetType': string
     id: number
     name: string
-    team: {
-      '@assetType': string
-      '@key': string
-    }
+    key: string
   }
 }
 
-type CreateDriverProps = {
-  payload: CreateDriver
+type CreateEventProps = {
+  payload: CreateEvent
 }
 
-type UpdateDriverProps = {
-  payload: UpdateDriver
+type UpdateEventProps = {
+  payload: UpdateEvent
 }
 
-export function createDriver({
+export function createEventAsset({
   payload,
-}: CreateDriverProps): Promise<GetByAssetTypeProps> {
+}: CreateEventProps): Promise<GetByAssetTypeProps> {
   return http
     .post<GetByAssetTypeProps>(`invoke/createAsset`, payload)
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data)
 }
 
-export function updateDriverAsset({
+export function updateEventAsset({
   payload,
-}: UpdateDriverProps): Promise<GetByAssetTypeProps> {
+}: UpdateEventProps): Promise<GetByAssetTypeProps> {
   return http
     .put<GetByAssetTypeProps>(`invoke/updateAsset`, payload)
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data)
 }
 
-export function getDrivers(): Promise<GetByAssetTypeProps> {
+export function getEvents(): Promise<GetByAssetTypeProps> {
   return http
     .post<GetByAssetTypeProps>(`query/search`, {
       query: {
         selector: {
-          '@assetType': 'driver',
+          '@assetType': 'event',
         },
       },
     })
     .then(({ data }: AxiosResponse<GetByAssetTypeProps>) => data)
 }
 
-export function getDriverById(id: number): Promise<Result> {
+export function getEventDetails(name: string, date: Date): Promise<Result> {
   return http
     .post<Result>(`query/readAsset`, {
       key: {
-        '@assetType': 'driver',
-        id,
+        '@assetType': 'event',
+        name,
+        date,
       },
     })
     .then(({ data }: AxiosResponse<Result>) => data)
 }
 
-export function DeleteDriverById(id: number): Promise<void> {
+export function DeleteEventById(id: number): Promise<void> {
   const requestBody = {
     key: {
-      '@assetType': 'driver',
+      '@assetType': 'event',
       id,
     },
   }

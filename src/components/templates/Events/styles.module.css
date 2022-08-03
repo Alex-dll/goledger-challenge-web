@@ -1,0 +1,11 @@
+.container {
+  @apply flex flex-col items-center
+}
+.carCreate {
+  @apply px-4 py-2 font-bold  bg-gray-900 text-gray-50 rounded-xl hover:bg-gray-700
+}
+
+.carList {
+  @apply flex flex-col items-center justify-center pb-8 md:flex-row md:flex-wrap gap-8
+}
+

@@ -11,7 +11,6 @@ type Props = {
   name: string
   id: number
   subtitle?: string
-  prefetch?: () => void
 }
 
 const imageModel = {

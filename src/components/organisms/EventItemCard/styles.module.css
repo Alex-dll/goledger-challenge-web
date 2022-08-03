@@ -1,0 +1,28 @@
+.card {
+ @apply min-w-[24rem] flex flex-col items-center max-w-3xl gap-4 py-4
+}
+
+.wrapper {
+  @apply flex flex-col items-center gap-2
+}
+
+.name {
+  @apply text-2xl font-extrabold leading-none tracking-tight text-gray-900
+}
+
+.winner {
+  @apply font-bold text-yellow-500
+}
+
+
+.date {
+  @apply text-sm font-semibold leading-none tracking-tight text-gray-900
+}
+
+.key {
+  @apply max-w-sm text-center text-gray-700
+}
+
+.link {
+  @apply px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700
+}
