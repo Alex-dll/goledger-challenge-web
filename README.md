@@ -3,6 +3,9 @@
 
 In this challenge you will create a web interface to a blockchain application. In this application you must implement a race event, car and driver dashboard.
 
+# Behaviours
+![Go Ledger Gif](https://github.com/Alex-dll/goledger-challenge-web/blob/master/public/GoLedger.gif?raw=true)
+
 # Requirements
 
 - Your application should be able to add/remove/edit and show all cars, drivers, teams and events;
