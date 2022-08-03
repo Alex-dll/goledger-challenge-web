@@ -27,8 +27,6 @@ function UpdateCar() {
 
   const findesDriver = data?.result.find((driver) => driver['@key'] === pilot)
 
-  console.log(findesDriver)
-
   const payload: UpdateCarProps = {
     update: {
       '@assetType': 'car',

@@ -18,8 +18,6 @@ function CreateCar() {
 
   const findesDriver = data?.result.find((driver) => driver['@key'] === pilot)
 
-  console.log(findesDriver)
-
   const router = useRouter()
 
   const payload: CreateCarType = {

@@ -16,8 +16,6 @@ function ManageEvent() {
   const router = useRouter()
   const { id } = router.query
 
-  console.log(id)
-
   const { isLoading, data } = useGetEventDetails(`${id}`)
 
   async function DeleteEvent(EventKey: string) {
@@ -82,7 +80,6 @@ function ManageEvent() {
               prize={`${data?.prize}`}
               winner={data?.winner['@key']}
               eventKey={`${data?.['@key']}`}
-              visible
             />
           )}
         </motion.section>

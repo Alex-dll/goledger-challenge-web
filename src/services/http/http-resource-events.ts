@@ -26,8 +26,10 @@ export type CreateEvent = {
   asset: [
     {
       '@assetType': string
-      id: number
       name: string
+      date: Date
+      prize: number
+      winner: Winner
     },
   ]
 }
@@ -35,9 +37,11 @@ export type CreateEvent = {
 export type UpdateEvent = {
   update: {
     '@assetType': string
-    id: number
+    '@key': string
     name: string
-    key: string
+    date: Date
+    prize: number
+    winner: Winner
   }
 }
 

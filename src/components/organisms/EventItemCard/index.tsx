@@ -4,6 +4,7 @@ import Image from 'next/image'
 
 import styles from './styles.module.css'
 import { formatDate } from '../../../utils/formatDate'
+import { formatPrice } from '../../../utils/formatPrice'
 
 type Props = {
   layoutId: string
@@ -36,7 +37,9 @@ function EventItemCard({
       <div className={styles.wrapper}>
         <h2 className={styles.name}>{`Evento: ${name}`}</h2>
         <p className={styles.date}>{`Data do torneio: ${formatDate(data)}`}</p>
-        <p className={styles.prize}>{`Prémio: $${prize}`}</p>
+        <p className={styles.prize}>{`Prémio: ${formatPrice(
+          Number(prize),
+        )}`}</p>
         <p className={styles.winner}>{`Ganhador do torneio: ${winner}`}</p>
         <p className={styles.key}>{`Key: ${eventKey}`}</p>
       </div>

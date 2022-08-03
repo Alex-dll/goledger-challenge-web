@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 
-import { useGetCar, useGetDrivers } from '../../../hooks/useApi'
+import { useGetEventDetails, useGetTeams } from '../../../hooks/useApi'
 import { query as queryClient } from '../../../services'
 import {
-  UpdateCar as UpdateCarProps,
-  updateCarAsset,
+  UpdateEvent as UpdateEventProps,
+  updateEventAsset,
 } from '../../../services/http'
 import { Heading, LinkGoTo } from '../../atoms'
 
@@ -16,43 +16,51 @@ import styles from './styles.module.css'
 
 function UpdateEvent() {
   const router = useRouter()
-
   const { id } = router.query
 
-  const car = useGetCar(Number(id))
-  const { data } = useGetDrivers()
+  const event = useGetEventDetails(String(id))
 
-  const [model, setModel] = useState(String(car.data?.model))
-  const [pilot, setPilot] = useState(car?.data?.driver['@key'])
+  const { data, isLoading } = useGetTeams()
 
-  const findesDriver = data?.result.find((driver) => driver['@key'] === pilot)
+  const [name, setName] = useState(event.data?.name)
+  const [winner, setWinner] = useState(event.data?.winner['@key'])
+  const [prize, setPrize] = useState(event.data?.prize)
+  const [date, setDate] = useState<Date>(new Date())
 
-  console.log(findesDriver)
+  useCallback(() => {
+    if (!isLoading && event.data) {
+      setDate(new Date(event.data.date))
+    }
+  }, [])
 
-  const payload: UpdateCarProps = {
+  const findesTeam = data?.result.find((teams) => teams['@key'] === winner)
+
+  const payload: UpdateEventProps = {
     update: {
-      '@assetType': 'car',
-      id: Number(car.data?.id),
-      driver: {
-        id: Number(findesDriver?.id),
-        '@assetType': 'driver',
-        '@key': String(findesDriver?.['@key']),
+      '@assetType': 'event',
+      '@key': `${event.data?.['@key']}`,
+      name: `${name}`,
+      date,
+      prize: Number(prize),
+      winner: {
+        '@assetType': 'team',
+        '@key': `${findesTeam?.['@key']}`,
       },
-      model,
     },
   }
 
-  async function handleUpdateCar() {
-    if (!model || !pilot) {
+  async function handleUpdateEvent() {
+    if (!name || !winner || !prize || !date) {
       toast.error('Preencha todos os campos!')
     } else {
       try {
-        await updateCarAsset({ payload })
-        await queryClient.invalidateQueries(['cars'])
-        router.push('/cars')
-        toast.success('Carro atualizado com sucesso! 🙂')
+        await updateEventAsset({ payload })
+        await queryClient.invalidateQueries(['events'])
+        await queryClient.invalidateQueries(['event', id])
+        router.push('/events')
+        toast.success('Evento Atualizado com sucesso! 🙂')
       } catch (error) {
-        toast.error('Não foi atualizar o carro! 😢')
+        toast.error('Não foi atualizar o evento! 😢')
 
         console.log(error)
       }
@@ -61,11 +69,11 @@ function UpdateEvent() {
 
   return (
     <main className={styles.container}>
-      <Heading title="Atualize o seu carro" />
+      <Heading title="Atualize o seu evento" />
 
       <motion.div
-        layoutId="car-img"
-        className="w-full h-64 mb-10 bg-center bg-[url('/carPage/car.jpg')]"
+        layoutId="event-img"
+        className="w-full h-64 mb-10 bg-center bg-[url('/eventPage/event.jpg')]"
       />
 
       <motion.section
@@ -80,41 +88,67 @@ function UpdateEvent() {
               htmlFor="large-input"
               className="block mb-2 text-sm font-medium text-gray-900"
             >
-              Modelo do Carro
+              Nome do Evento
             </label>
             <input
               type="text"
-              value={model}
-              onChange={(e) => setModel(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className={styles.input}
+              disabled
             />
             <label className="block mb-2 text-sm font-medium text-gray-900">
-              Piloto do carro
+              Vencedor do evento
             </label>
             <select
-              value={pilot}
-              onChange={(e) => setPilot(e.target.value)}
+              value={winner}
+              onChange={(e) => setWinner(e.target.value)}
               className={styles.input}
             >
-              <option>Selecione um piloto</option>
-              {data?.result.map((driver) => (
-                <option key={driver.id} value={driver['@key']}>
-                  {driver.name}
+              <option>Selecione uma equipe</option>
+              {data?.result.map((team) => (
+                <option key={team.id} value={team['@key']}>
+                  {team.name}
                 </option>
               ))}
             </select>
+            <label
+              htmlFor="large-input"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              Valor do prêmio
+            </label>
+            <input
+              type="text"
+              value={prize}
+              onChange={(e) => setPrize(Number(e.target.value))}
+              className={styles.input}
+            />
+            <label
+              htmlFor="large-input"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              Data do evento
+            </label>
+            <input
+              type="date"
+              className={styles.input}
+              defaultValue={date?.toISOString().split('T')[0]}
+              onChange={(e) => setDate(new Date(e.target.value))}
+              disabled
+            />
           </div>
         </form>
         <button
           type="button"
           className=" px-4 py-2 font-bold text-white bg-blue-500 rounded-full  hover:bg-blue-700"
-          onClick={handleUpdateCar}
+          onClick={handleUpdateEvent}
         >
-          Atualizar Carro
+          Atualizar Evento
         </button>
       </motion.section>
 
-      <LinkGoTo title="Voltar para seus carros" href="/cars" />
+      <LinkGoTo title="Voltar para seus eventos" href="/events" />
     </main>
   )
 }
